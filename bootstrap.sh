@@ -28,6 +28,10 @@ sudo cp /vagrant/on_earth-demo.conf /etc/httpd/conf.d/on_earth-demo.conf
 #Set up WTMS/TWMS OpenLayers demo endpoints for all 4 projections we're using
 sudo mkdir -p /usr/share/onearth/demo/lib
 sudo cp -R /vagrant/endpoint_configs/html_lib/* /usr/share/onearth/demo/lib/
+
+#Download image files
+curl -# -o /vagrant/source_images/blue_marble2004336.jpg http://eoimages.gsfc.nasa.gov/images/imagerecords/73000/73776/world.topo.bathy.200408.3x21600x10800.jpg
+
 for PROJECTION in "${PROJECTIONS[@]}"
 do
 	sudo mkdir /usr/share/onearth/demo/wmts-$PROJECTION/
@@ -90,9 +94,9 @@ do
 	sudo cp /vagrant/mrfs/blue_marble_${MRF_PROJS[$INDEX]}/blue_marble2004336_.mrf /etc/onearth/config/headers/blue_marble2004336_${MRF_PROJS[$INDEX]}.mrf
 done
 
-#Copy layer config files, run config tool, restart Apache. For some reason LCDIR needs to be attached during initial provision
+#Copy layer config files, run config tool, restart Apache
 sudo cp /vagrant/layer_configs/* /etc/onearth/config/layers/
-sudo LCDIR=/junk/etc/onearth/config oe_configure_layer --layer_dir=/etc/onearth/config/layers/ -r
+sudo LCDIR=/etc/onearth/config oe_configure_layer --layer_dir=/etc/onearth/config/layers/ -r
 
 clear
 echo "OnEarth server is now live at http://localhost:8080."
