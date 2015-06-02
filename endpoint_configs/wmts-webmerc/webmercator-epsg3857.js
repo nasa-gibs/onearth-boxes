@@ -33,7 +33,7 @@ window.onload = function() {
 
     var source = new ol.source.XYZ({
         url: "/onearth/demo/wmts/webmerc/wmts.cgi?" +
- 	    "SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=blue_marble2004336&STYLE=&TILEMATRIXSET=GoogleMapsCompatible_Level7&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&FORMAT=image%2Fjpeg"
+ 	    "SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=blue_marble&STYLE=&TILEMATRIXSET=GoogleMapsCompatible_Level7&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&FORMAT=image%2Fjpeg"
     });
 
     var layer = new ol.layer.Tile({source: source});

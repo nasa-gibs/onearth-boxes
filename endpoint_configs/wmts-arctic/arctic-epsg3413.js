@@ -40,7 +40,7 @@ window.onload = function() {
 
     var source = new ol.source.WMTS({
         url: "/onearth/demo/wmts/arctic/wmts.cgi?",
-        layer: "blue_marble2004336",
+        layer: "blue_marble",
         format: "image/jpeg",
         matrixSet: "EPSG3413_500m",
         tileGrid: new ol.tilegrid.WMTS({

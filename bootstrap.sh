@@ -30,7 +30,7 @@ sudo mkdir -p /usr/share/onearth/demo/lib
 sudo cp -R /vagrant/endpoint_configs/html_lib/* /usr/share/onearth/demo/lib/
 
 #Download image files
-curl -# -o /vagrant/source_images/blue_marble2004336.jpg http://eoimages.gsfc.nasa.gov/images/imagerecords/73000/73776/world.topo.bathy.200408.3x21600x10800.jpg
+curl -# -o /vagrant/source_images/blue_marble.jpg http://eoimages.gsfc.nasa.gov/images/imagerecords/73000/73776/world.topo.bathy.200408.3x21600x10800.jpg
 
 for PROJECTION in "${PROJECTIONS[@]}"
 do
@@ -49,18 +49,19 @@ declare -a MARBLE_PROJECTIONS=(geo webmerc)
 for INDEX in {0..1}
 do 
 	#Copy image files and set up MRF process dirs
-	mkdir -p /vagrant/generated_mrfs/blue_marble2004336_${MARBLE_PROJECTIONS[$INDEX]}/{source_images,working_dir,logfile_dir,output_dir,empty_tiles}
-	cp /vagrant/source_images/blue_marble2004336.* /vagrant/generated_mrfs/blue_marble2004336_${MARBLE_PROJECTIONS[$INDEX]}/source_images/
-	cp /vagrant/mrf_configs/blue_marble2004336_${MARBLE_PROJECTIONS[$INDEX]}_config.xml /vagrant/generated_mrfs/blue_marble2004336_${MARBLE_PROJECTIONS[$INDEX]}/
-	cp /usr/share/onearth/apache/black.jpg /vagrant/generated_mrfs/blue_marble2004336_${MARBLE_PROJECTIONS[$INDEX]}/empty_tiles/
-	cd /vagrant/generated_mrfs/blue_marble2004336_${MARBLE_PROJECTIONS[$INDEX]}/
+	mkdir -p /vagrant/generated_mrfs/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}/{source_images,working_dir,logfile_dir,output_dir,empty_tiles}
+	cp /vagrant/source_images/blue_marble.* /vagrant/generated_mrfs/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}/source_images/
+	cp /vagrant/mrf_configs/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}_config.xml /vagrant/generated_mrfs/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}/
+	cp /usr/share/onearth/apache/black.jpg /vagrant/generated_mrfs/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}/empty_tiles/
+	cd /vagrant/generated_mrfs/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}/
 
-	mrfgen -c /vagrant/generated_mrfs/blue_marble2004336_${MARBLE_PROJECTIONS[$INDEX]}/blue_marble2004336_${MARBLE_PROJECTIONS[$INDEX]}_config.xml
+	mrfgen -c /vagrant/generated_mrfs/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}_config.xml
 
 	#Create data archive directories and copy MRF files
-	sudo mkdir -p /usr/share/onearth/demo/data/${PROJEPSGS[$INDEX]}/blue_marble2004336/
-	sudo cp /vagrant/generated_mrfs/blue_marble2004336_${MARBLE_PROJECTIONS[$INDEX]}/output_dir/blue_marble2004336_.* /usr/share/onearth/demo/data/${PROJEPSGS[$INDEX]}/blue_marble2004336/
-	sudo cp /vagrant/generated_mrfs/blue_marble2004336_${MARBLE_PROJECTIONS[$INDEX]}/output_dir/blue_marble2004336_.mrf /etc/onearth/config/headers/blue_marble2004336_${MARBLE_PROJECTIONS[$INDEX]}.mrf
+	sudo mkdir -p /usr/share/onearth/demo/data/${PROJEPSGS[$INDEX]}/blue_marble/
+	for f in /vagrant/generated_mrfs/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}/output_dir/*; do mv "$f" "${f//blue_marble2004336_/blue_marble}"; done
+	sudo cp /vagrant/generated_mrfs/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}/output_dir/* /usr/share/onearth/demo/data/${PROJEPSGS[$INDEX]}/blue_marble/
+	sudo cp /vagrant/generated_mrfs/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}/output_dir/blue_marble.mrf /etc/onearth/config/headers/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}.mrf
 done
 
 #MODIS data 
@@ -89,9 +90,9 @@ declare -a MRF_PROJS=(arctic antarctic)
 declare -a MRF_EPSGS=(EPSG3413 EPSG3031)
 for INDEX in {0..1}
 do
-	sudo mkdir -p /usr/share/onearth/demo/data/${MRF_EPSGS[$INDEX]}/blue_marble2004336
-	sudo cp /vagrant/mrfs/blue_marble_${MRF_PROJS[$INDEX]}/* /usr/share/onearth/demo/data/${MRF_EPSGS[$INDEX]}/blue_marble2004336/
-	sudo cp /vagrant/mrfs/blue_marble_${MRF_PROJS[$INDEX]}/blue_marble2004336_.mrf /etc/onearth/config/headers/blue_marble2004336_${MRF_PROJS[$INDEX]}.mrf
+	sudo mkdir -p /usr/share/onearth/demo/data/${MRF_EPSGS[$INDEX]}/blue_marble
+	sudo cp /vagrant/mrfs/blue_marble_${MRF_PROJS[$INDEX]}/* /usr/share/onearth/demo/data/${MRF_EPSGS[$INDEX]}/blue_marble/
+	sudo cp /vagrant/mrfs/blue_marble_${MRF_PROJS[$INDEX]}/blue_marble.mrf /etc/onearth/config/headers/blue_marble_${MRF_PROJS[$INDEX]}.mrf
 done
 
 #Copy layer config files, run config tool, restart Apache

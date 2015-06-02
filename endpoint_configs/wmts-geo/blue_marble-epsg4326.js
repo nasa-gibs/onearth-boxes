@@ -35,7 +35,7 @@ window.onload = function() {
 
     var source = new ol.source.WMTS({
         url: "/onearth/demo/wmts/geo/wmts.cgi?",
-        layer: "blue_marble2004336",
+        layer: "blue_marble",
         format: "image/jpeg",
         matrixSet: "EPSG4326_1km",
         tileGrid: new ol.tilegrid.WMTS({
