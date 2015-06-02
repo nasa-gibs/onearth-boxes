@@ -19,6 +19,9 @@ sudo yum -y install onearth-*
 echo "export LCDIR=/etc/onearth/config" >> .bashrc
 source ~/.bashrc
 
+#Set Apache to start when machine is restarted
+sudo chkconfig --level 234 httpd on
+
 #Modify sudoers file to keep LCDIR in the sudo envvars
 sudo sed -i 's/.*LC_TIME LC_ALL LANGUAGE LINGUAS _XKB_CHARSET XAUTHORITY.*/&\nDefaults    env_keep += \"LCDIR\"/' /etc/sudoers
 
