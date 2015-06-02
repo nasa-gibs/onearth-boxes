@@ -8,7 +8,7 @@ The current version requires [Vagrant](https://www.vagrantup.com/) to be install
 
 Setup
 ======
-Run `vagrant up` in the root directory of this repo. A new Vagrant VM will be automatically generated. It might take a while for the software to download all the required software and generate demo imagery.
+Run `vagrant up` in the root directory of this repo. A new Vagrant VM will be automatically generated. It can take a while for all the necessary software to be set up and sample images processed.
 
 Once it's set up, the OnEarth Apache server should be available on port 8080 of localhost. Please refer to the Vagrant documentation for information on how to map local ports to Vagrant VMs.
 
