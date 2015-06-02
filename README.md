@@ -1,6 +1,6 @@
 onearth-boxes
 ================
-This software package sets up a OnEarth server within a Vagrant virtual machine, complete with sample imagery, pre-configured endpoints, and OpenLayers demonstrations.
+This software package sets up a OnEarth server within a Vagrant virtual machine, complete with sample imagery, pre-configured endpoints, and OpenLayers demonstration pages.
 
 Requirements
 =======
