@@ -44,7 +44,8 @@ do
 	sudo mkdir -p /usr/share/onearth/demo/twms-$PROJECTION/.lib
 	sudo cp -R /usr/share/onearth/apache/ /usr/share/onearth/demo/twms-$PROJECTION/
 done
-sudo cp /vagrant/endpoint_configs/index.html /usr/share/onearth/demo/
+sudo mkdir -p /usr/share/onearth/demo/home
+sudo cp /vagrant/endpoint_configs/index.html /usr/share/onearth/demo/home/
 
 #Create MRF directories and copy source/empty tile images and config XML files, then create MRF, copy images to archive, copy MRF to header dir
 #and copy layer config
