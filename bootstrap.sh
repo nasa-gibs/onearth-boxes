@@ -35,6 +35,7 @@ sudo cp -R /vagrant/endpoint_configs/html_lib/* /usr/share/onearth/demo/lib/
 #Download image files
 curl -# -o /vagrant/source_images/blue_marble.jpg http://eoimages.gsfc.nasa.gov/images/imagerecords/73000/73776/world.topo.bathy.200408.3x21600x10800.jpg
 
+#Set up endpoint configs
 for PROJECTION in "${PROJECTIONS[@]}"
 do
 	sudo mkdir /usr/share/onearth/demo/wmts-$PROJECTION/
@@ -43,6 +44,7 @@ do
 	sudo mkdir -p /usr/share/onearth/demo/twms-$PROJECTION/.lib
 	sudo cp -R /usr/share/onearth/apache/ /usr/share/onearth/demo/twms-$PROJECTION/
 done
+sudo cp /vagrant/endpoint_configs/index.html /usr/share/onearth/demo/
 
 #Create MRF directories and copy source/empty tile images and config XML files, then create MRF, copy images to archive, copy MRF to header dir
 #and copy layer config

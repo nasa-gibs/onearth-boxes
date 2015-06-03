@@ -6,7 +6,7 @@
     <TiledGroupName>MYR4ODLOLLDY_global_10km tileset</TiledGroupName>
     <HeaderFileName>/etc/onearth/config/headers/MYR4ODLOLLDY_geo.mrf</HeaderFileName>
     <Compression>PNG</Compression>
-    <TileMatrixSet>EPSG4326_16km</TileMatrixSet>
+    <TileMatrixSet>EPSG4326_2km</TileMatrixSet>
     <EmptyTileSize offset="0">1397</EmptyTileSize>
     <Projection>EPSG:4326</Projection> 
     <EnvironmentConfig>/etc/onearth/config/conf/environment_geographic.xml</EnvironmentConfig>

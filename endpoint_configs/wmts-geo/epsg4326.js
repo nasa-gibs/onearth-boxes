@@ -53,10 +53,35 @@ window.onload = function() {
             tileSize: 512
         })
     });
+    
+    var sourceMODIS = new ol.source.WMTS({
+        url: "/onearth/demo/wmts/geo/wmts.cgi?",
+        layer: "MYR4ODLOLLDY_global_10km",
+        format: "image/png",
+        matrixSet: "EPSG4326_2km",
+        tileGrid: new ol.tilegrid.WMTS({
+            origin: [-180, 90],
+            resolutions: [
+                0.5625,
+                0.28125,
+                0.140625,
+		0.0703125,
+		0.03515625
+            ],
+            matrixIds: [0, 1, 2, 3, 4],
+            tileSize: 512
+        })
+    });
 
     var layer = new ol.layer.Tile({
         source: source
     });
+    
+    var layerMODIS = new ol.layer.Tile({
+	source: sourceMODIS
+    });
 
     map.addLayer(layer);
+
+    map.addLayer(layerMODIS);
 };

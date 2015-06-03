@@ -1,0 +1,24 @@
+<html lang="en">
+<head>
+</head>
+
+<body>
+	<h1>Welcome to OnEarth!</h1>
+	<p>This Vagrant VM is customized with pre-confgured endpoints and sample imagery. For more information, visit (github URL)</p>
+
+	<h2>Endpoint Configuration</h2>
+	<p>This package has 4 endpoints configured for the following EPSG projections: 4326 (geographic), 3857 (webmercator), 3413 (arctic), and 3857 (antarctic)</p>
+	<p>Each endpoint is configured with NASA's Blue Marble imagery. The EPSG 4326 endpoint also has MODIS aerosol data.</p>
+	<p>For ease of use, each WMTS endpoint has an OpenLayers client for browsing the imagery.</p>
+
+	<h2>OpenLayers endpoint demos</h2>
+	<p><a href="/onearth/demo/wmts/geo/">Blue Marble/MODIS Aerosol EPSG 4326 (/onearth/demo/wmts/geo/)</a></p>
+	<p><a href="/onearth/demo/wmts/webmerc/">Blue Marble EPSG 3857 (/onearth/demos/wmts/webmerc/)</a></p>
+	<p><a href="/onearth/demo/wmts/arctic/">Blue Marble EPSG 3413 (/onearth/demos/wmts/arctic/)</a></p>
+	<p><a href="/onearth/demo/wmts/antarctic">Blue Marble EPSG 3031 (/onearth/demos/wmts/antarctic/)</a></p>
+
+	<p><strong>Sample tile request:</strong><a href="http://localhost:8080/onearth/demo/wmts/geo/wmts.cgi?layer=blue_marble&tilematrixset=EPSG4326_1km&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fjpeg&TileMatrix=2&TileCol=1&TileRow=1">http://localhost:8080/onearth/demo/wmts/geo/wmts.cgi?layer=blue_marble&tilematrixset=EPSG4326_1km&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fjpeg&TileMatrix=2&TileCol=1&TileRow=1</a></p>
+
+	<p><strong>Sample getCapabilities request:</strong><a href="http://localhost:8080/onearth/demo/wmts/arctic/getCapabilities.xml">http://localhost:8080/onearth/demo/wmts/arctic/getCapabilities.xml</a>
+
+</body>
