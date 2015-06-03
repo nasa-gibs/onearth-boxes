@@ -16,7 +16,7 @@ To change the default HTTP port of the OnEarth Box, edit the Vagrantfile.
 
 How To Use
 ====
-Visit http://localhost:8080 (or wherever you have the VM configured) to get started.
+Visit http://localhost:8080/onearth/demo (or wherever you have the VM configured) to get started.
 
 Endpoint syntax is: http://localhost:8080/onearth/demo/*service*/*projection*/
 
