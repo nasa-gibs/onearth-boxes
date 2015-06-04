@@ -9,7 +9,7 @@ sudo yum install -y httpd
 
 #Download and install OnEarth and required packages
 sudo yum -y install epel-release
-curl -# -L https://github.com/nasa-gibs/onearth/releases/download/v0.6.3/onearth-0.6.3.tar.gz | tar xvz
+curl -# -L https://github.com/nasa-gibs/onearth/releases/download/v0.6.4/onearth-0.6.4.tar.gz | tar xvz
 sudo yum -y install gibs-gdal-*
 sudo yum -y install onearth-*
 
@@ -70,8 +70,8 @@ do
 	sudo cp /vagrant/generated_mrfs/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}/output_dir/blue_marble.mrf /etc/onearth/config/headers/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}.mrf
 done
 
-#MODIS data 
-declare -a MODIS_PROJECTIONS=(geo webmerc)
+#MODIS data - right now, we're only using it in geo projection 
+declare -a MODIS_PROJECTIONS=(geo)
 for INDEX in {0..0}
 do
 	#Copy image files and set up MRF process dirs
