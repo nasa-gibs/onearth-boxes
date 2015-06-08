@@ -1,4 +1,9 @@
-onearth-boxes
+NASA Global Imagery Browse Services (GIBS)
+=======
+
+This software is part of NASA GIBS OnEarth (https://github.com/nasa-gibs/onearth) and was developed at the Jet Propulsion Laboratory.
+
+OnEarth-Boxes
 ================
 This software package sets up a OnEarth server within a Vagrant virtual machine, complete with sample imagery, pre-configured endpoints, and OpenLayers demonstration pages.
 
