@@ -106,4 +106,4 @@ sudo cp /vagrant/layer_configs/* /etc/onearth/config/layers/
 sudo LCDIR=/etc/onearth/config oe_configure_layer --layer_dir=/etc/onearth/config/layers/ -r
 
 clear
-echo "OnEarth server is now live at http://localhost:8080."
+echo "To say "Visit the OnEarth demo at http://localhost:8080/onearth/demo
