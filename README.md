@@ -16,13 +16,13 @@ To change the default HTTP port of the OnEarth Box, edit the Vagrantfile.
 
 How To Use
 ====
-Visit http://localhost:8080/onearth/demo (or wherever you have the VM configured) to get started.
+Visit [http://localhost:8080/onearth/demo](http://localhost:8080/onearth/demo) (you can modify the Vagrantfile to use a different port) to get started.
 
 Endpoint syntax is: http://localhost:8080/onearth/demo/*service*/*projection*/
 
 Example: [http://localhost:8080/onearth/demo/wmts/geo/](http://localhost:8080/onearth/demo/wmts/geo/)
 
-Sample Tile Request: [http://localhost:8080/onearth/demo/wmts/webmerc/
+Sample Tile Request: [http://localhost:8080/onearth/demo/wmts/webmerc/](http://localhost:8080/onearth/demo/wmts/webmerc/)
 
 Add Your Own Imagery
 =====
