@@ -4,8 +4,8 @@
 declare -a PROJECTIONS=(geo webmerc arctic antarctic)
 declare -a PROJEPSGS=(EPSG4326 EPSG3857 EPSG3413 EPSG3031)
 
-#Install Apache
-sudo yum install -y httpd epel-release mapserver
+#Install Apache and EPEL
+sudo yum install -y httpd epel-release
 
 #Download and install OnEarth and required packages
 curl -# -L https://github.com/nasa-gibs/onearth/releases/download/v0.6.4/onearth-0.6.4.tar.gz | tar xvz
@@ -100,9 +100,10 @@ do
 	sudo cp /vagrant/mrfs/blue_marble_${MRF_PROJS[$INDEX]}/blue_marble.mrf /etc/onearth/config/headers/blue_marble_${MRF_PROJS[$INDEX]}.mrf
 done
 
-#Copy the Mapserver config files and endpoints
+#Install and copy the Mapserver config files and endpoints
+sudo yum -y install proj-epsg mapserver
 sudo mkdir -p /usr/share/onearth/demo/mapserver
-sudo cp /vagrant/mapserver_configs/* /usr/share/onearth/demo/mapserver
+sudo cp /vagrant/mapserver_config/* /usr/share/onearth/demo/mapserver
 sudo ln -s /usr/libexec/mapserver /usr/share/onearth/demo/mapserver/mapserver.cgi
 
 #Copy layer config files, run config tool, restart Apache
@@ -110,4 +111,4 @@ sudo cp /vagrant/layer_configs/* /etc/onearth/config/layers/
 sudo LCDIR=/etc/onearth/config oe_configure_layer --layer_dir=/etc/onearth/config/layers/ -r
 
 clear
-echo "OnEarth server is now live at http://localhost:8080. (or another port if you've changed that setting in the Vagrantfile."
+echo "OnEarth server is now live at http://localhost:8080. (or another port if you've changed that setting in the Vagrantfile.)"

@@ -9,7 +9,7 @@ MAP
   CONFIG "PROJ_LIB" "/usr/share/proj/"
 
   ##Debug Params##
-  CONFIG "MS_ERRORFILE" error.log
+  CONFIG "MS_ERRORFILE" stderr
   Debug 3
   CONFIG "CPL_DEBUG" "ON"
   CONFIG "PROJ_DEBUG" "ON"
