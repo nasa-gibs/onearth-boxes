@@ -8,7 +8,7 @@ declare -a PROJEPSGS=(EPSG4326 EPSG3857 EPSG3413 EPSG3031)
 sudo yum install -y httpd epel-release
 
 #Download and install OnEarth and required packages
-curl -# -L https://github.com/nasa-gibs/onearth/releases/download/v0.6.4/onearth-0.6.4.tar.gz | tar xvz
+curl -# -L https://github.com/nasa-gibs/onearth/releases/download/v0.6.5/onearth-0.6.5.tar.gz | tar xvz
 sudo yum -y install gibs-gdal-*
 sudo yum -y install onearth-*
 
