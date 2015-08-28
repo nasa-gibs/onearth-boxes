@@ -7,15 +7,6 @@ OnEarth-Boxes
 ================
 This software package sets up a OnEarth server within a Vagrant virtual machine, complete with sample imagery, pre-configured endpoints, and OpenLayers demonstration pages.
 
-Versioning
-========
-
-OnEarth-Boxes releases coincide with corresponding versions of OnEarth. The 'master' branch of the repo will always contain the same version of OnEarth as the latest release.
-
-To download an OnEarth-Box that uses a previous version of OnEarth, choose that version of the OnEarth-Boxes release at [https://github.com/nasa-gibs/onearth-boxes/releases](https://github.com/nasa-gibs/onearth-boxes/releases).
-
-Each new release is tagged with the corresponding OnEarth version, so you can also switch version tags if you choose to clone the repo instead.
-
 Requirements
 =======
 The current version requires [Vagrant](https://www.vagrantup.com/) to be installed.
