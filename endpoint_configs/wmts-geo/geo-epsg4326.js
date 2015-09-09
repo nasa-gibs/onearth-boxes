@@ -27,8 +27,8 @@ window.onload = function() {
     var maxZoomLevels = 7;
 
     //Set locations for endpoint and getCapabilities
-    var endpointUrl = "http://localhost:8080/onearth/demo/wmts/geo/wmts.cgi?";
-    var getCapabilitiesLocation = "http://localhost:8080/onearth/demo/wmts/geo/getCapabilities.xml";
+    var endpointUrl = "/onearth/demo/wmts/geo/wmts.cgi?";
+    var getCapabilitiesLocation = "/onearth/demo/wmts/geo/getCapabilities.xml";
     //END CONFIGURATION
 
     //proj4.js needed for arctic/antarctic projections.
