@@ -39,8 +39,6 @@ By default, the `oe-demo.json` file simultaneously builds:
 
 To only create one kind of image, use the `-only` option to specify the specific builder you want. To create a VirtualBox image that isn't packaged for Vagrant, use the `"keep_input_artifact": true` option under the Vagrant provisioner section in `oe-demo.json`.
 
---------
-
 ## Vagrant info
 Using [Vagrant](https://www.vagrantup.com) is one of the easiest ways to get started with the OnEarth demo VM.
 
