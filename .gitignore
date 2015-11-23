@@ -1,3 +1,7 @@
 source_images/blue_marble.jpg
 generated_mrfs/
-
+builds/
+output-vmware-iso/
+.vagrant/
+packer_cache/
+.DS_Store

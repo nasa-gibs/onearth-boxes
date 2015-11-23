@@ -21,14 +21,14 @@
 window.onload = function() {
     //CONFIGURATION
     //Set the EPSG projection here. EPSG:4326, 3857, 3413, and 3031 are supported.
-    var EPSGProjection = "EPSG:3031";
+    var EPSGProjection = "EPSG:3857";
 
     //Set the maximum number of zoom levels. This will depend on the average number of TileMatrixSets for each layer at this endpoint.
     var maxZoomLevels = 7;
 
     //Set locations for endpoint and getCapabilities
-    var endpointUrl = "/onearth/demo/wmts/antarctic/wmts.cgi?";
-    var getCapabilitiesLocation = "/onearth/demo/wmts/antarctic/getCapabilities.xml";
+    var endpointUrl = "./wmts.cgi?";
+    var getCapabilitiesLocation = "./getCapabilities.xml";
     //END CONFIGURATION
 
     //proj4.js needed for arctic/antarctic projections.

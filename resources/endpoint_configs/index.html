@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
+</head>
+
+<body>
+	<div class="container">
+		<div class="row">
+		<h1>Welcome to OnEarth!</h1>
+		<p>This Vagrant VM is customized with pre-confgured endpoints and sample imagery. For more information, visit (github URL)</p>
+
+		<h2>Endpoint Configuration</h2>
+		<p>This package has 4 endpoints configured for the following EPSG projections: 4326 (geographic), 3857 (webmercator), 3413 (arctic), and 3857 (antarctic).</p>
+		<p>Each endpoint is configured with NASA's Blue Marble imagery. The EPSG 4326 endpoint also has MODIS aerosol data.</p>
+		<p>For ease of use, each WMTS endpoint has an OpenLayers client for browsing the imagery.</p>
+
+		<p>This demo also includes a Mapserver configuration that can be used to access the demo imagery. OpenLayers endpoints are included that use Mapserver as a WMS service.</p>
+
+		<hr>
+
+		<h2>WMTS endpoint demos</h2>
+
+		<h3>WMTS endpoints with OpenLayers</h3>
+		<p><a href="/onearth/demo/wmts/geo/">Blue Marble/MODIS Aerosol EPSG 4326 (/onearth/demo/wmts/geo/)</a></p>
+		<p><a href="/onearth/demo/wmts/webmerc/">Blue Marble EPSG 3857 (/onearth/demos/wmts/webmerc/)</a></p>
+		<p><a href="/onearth/demo/wmts/arctic/">Blue Marble EPSG 3413 (/onearth/demos/wmts/arctic/)</a></p>
+		<p><a href="/onearth/demo/wmts/antarctic">Blue Marble EPSG 3031 (/onearth/demos/wmts/antarctic/)</a></p>
+
+		<p><strong>Sample WMTS tile request: </strong><a href="/onearth/demo/wmts/geo/wmts.cgi?layer=blue_marble&tilematrixset=EPSG4326_1km&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fjpeg&TileMatrix=2&TileCol=1&TileRow=1">/onearth/demo/wmts/geo/wmts.cgi?layer=blue_marble&tilematrixset=EPSG4326_1km&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fjpeg&TileMatrix=2&TileCol=1&TileRow=1</a></p>
+
+		<p><strong>Sample WMTS getCapabilities request: </strong><a href="/onearth/demo/wmts/arctic/getCapabilities.xml">/onearth/demo/wmts/arctic/getCapabilities.xml</a>
+		
+		<hr>
+		
+		<h2>TWMS Endpoint Demo</h2>
+		
+		<h4>Sample KML Generation Requests</h4>
+		<p>Blue Marble <a href="/onearth/demo/twms/geo/kmlgen.cgi?layers=blue_marble&TIME=2014-10-04">/onearth/demo/twms/geo/kmlgen.cgi?layers=blue_marble&TIME=2014-01-01</a></p>
+		<p>MODIS Aerosol <a href="/onearth/demo/twms/geo/kmlgen.cgi?layers=MYR4ODLOLLDY_global_10km&TIME=2014-10-04">/onearth/demo/twms/geo/kmlgen.cgi?layers=MYR4ODLOLLDY_global_10km&TIME=2014-10-04</a></p>
+		
+		<hr>
+
+		<h2>Mapserver Endpoint Demos</h2>
+
+		<h3>OpenLayers using Mapserver as a WMS</h3>
+	        <p><a href="/onearth/demo/mapserver/geo.html">Blue Marble/MODIS Aerosol EPSG 4326 (/onearth/demo/mapserver/geo.html)</a></p>
+	        <p><a href="/onearth/demo/mapserver/webmerc.html">Blue Marble EPSG 3857 (/onearth/demos/mapserver/webmerc.html)</a></p>
+	        <p><a href="/onearth/demo/mapserver/arctic.html">Blue Marble EPSG 3413 (/onearth/demos/mapserver/arctic.html)</a></p>
+	        <p><a href="/onearth/demo/mapserver/antarctic.html">Blue Marble EPSG 3031 (/onearth/demos/mapserver/antarctic.html)</a></p>
+
+		<h3>Sample Mapserver/WMS map request</h3>
+		<p><a href="/onearth/demo/mapserver/mapserver.cgi?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&FORMAT=image%2Fjpeg&TRANSPARENT=true&LAYERS=blue_marble_arctic&MAP=demo.map&CRS=EPSG%3A3413&STYLES=&WIDTH=1536&HEIGHT=1536&BBOX=-6291456%2C-6291456%2C6291456%2C6291456">/onearth/demo/mapserver/mapserver.cgi?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&FORMAT=image%2Fjpeg&TRANSPARENT=true&LAYERS=blue_marble_arctic&MAP=demo.map&CRS=EPSG%3A3413&STYLES=&WIDTH=1536&HEIGHT=1536&BBOX=-6291456%2C-6291456%2C6291456%2C6291456</a></p>
+
+		<h3>Sample Mapserver map request (single layer)</h3>
+		<p><a href="/onearth/demo/mapserver/mapserver.cgi?map=demo.map&layer=blue_marble_webmerc&mode=map">/onearth/demo/mapserver/mapserver.cgi?map=demo.map&layer=blue_marble_webmerc&mode=map</a></p>
+
+	        <h3>Sample Mapserver map request (multiple layers)</h3>
+		<p><a href="/onearth/demo/mapserver/mapserver.cgi?map=demo.map&layer=blue_marble&layer=MYR4ODLOLLDY_global_10km&mode=map">/onearth/demo/mapserver/mapserver.cgi?map=demo.map&layer=blue_marble&layer=MYR4ODLOLLDY_global_10km&mode=map</a></p>
+
+		<h3>Sample Mapserver/WMS getCapabilities request</h3>
+		<i>(note that this will download as a file with the name 'mapserver.cgi' if your browser isn't configured to handle MIME type 'application/vnd.ogc.wms_xml')</i>
+		<p><a href="/onearth/demo/mapserver/mapserver.cgi?map=demo.map&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetCapabilities">/onearth/demo/mapserver/mapserver.cgi?map=demo.map&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetCapabilities</a></p>
+	</div>
+</body>
