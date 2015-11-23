@@ -3,17 +3,13 @@ NASA Global Imagery Browse Services (GIBS)
 
 This software is part of NASA GIBS OnEarth (https://github.com/nasa-gibs/onearth) and was developed at the Jet Propulsion Laboratory.
 
---------
 # OnEarth-Boxes
 OnEarth-Boxes is a system that creates VM images for use in running, testing, and experimenting with the OnEarth and MRF tools. It uses [Packer](http://packer.io) to produce a variety of pre-built VMs in different formats.
 
 Boxes comes with some sample imagery and some pre-configured endpoints for use with testing and development.
 
-----------
 # Requirements
 Creation of an OnEarth-Boxes image requires [Packer](http://packer.io) to be installed on your computer.
-
---------
 
 # Creating an OnEarth VM
 To create a VM, use the `packer build oe-demo.json` command. The included Packer configuration file creates VirtualBox, Vagrant, and VMWare images. Use the `-only` option if you only want to create one type of VM (or don't have VMWare installed on your system).
