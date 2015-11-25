@@ -8,6 +8,13 @@ OnEarth-Boxes is a system that creates VM images for use in running, testing, an
 
 Boxes comes with some sample imagery and some pre-configured endpoints for use with testing and development.
 
+# What's in the Boxes?
+OnEarth-Boxes comes pre-configured with NASA Blue Marble and MODIS Aerosol imagery layers, in 4 separate projections. There are OpenLayers endpoints for testing with WMTS, as well as TWMS/KML and Mapserver endpoints.
+
+All the source code for both MRF and OnEarth is included, and all the utilities are pre-installed, including the GDAL MRF extensions.
+
+To get started with OnEarth-Boxes once you've created a VM image and have it running, go to `<onearth-boxes_vm_url>/onearth/demo`.
+
 # Requirements
 Creation of an OnEarth-Boxes image requires [Packer](http://packer.io) to be installed on your computer.
 
