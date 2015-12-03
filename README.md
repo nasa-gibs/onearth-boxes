@@ -42,7 +42,8 @@ In other words, if you're planning to access the VM under `localhost:8888`, it w
 By default, the `oe-demo.json` file simultaneously builds:
 
 - A VirtualBox image packaged as a Vagrant box
-- A VMWare Image
+- A VMWare image
+- A Parallels image
 
 To only create one kind of image, use the `-only` option to specify the specific builder you want. To create a VirtualBox image that isn't packaged for Vagrant, use the `"keep_input_artifact": true` option under the Vagrant provisioner section in `oe-demo.json`.
 
