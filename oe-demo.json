@@ -39,6 +39,23 @@
 	    "vm_name": "packer-centos-6.6-x86_64",
 		"ssh_wait_timeout": "10000s",
 		"shutdown_timeout": "10000s"
+	},
+	{
+		"type": "parallels-iso",
+		"guest_os_type": "centos",
+		"parallels_tools_flavor": "lin",
+		"iso_url": "http://mirror.hmc.edu/centos/6/isos/x86_64/CentOS-6.7-x86_64-minimal.iso",
+		"iso_checksum": "9381a24b8bee2fed0c26896141a64b69",
+		"iso_checksum_type": "md5",
+		"ssh_username": "vagrant",
+		"ssh_password": "vagrant",
+		"shutdown_command": "echo 'packer' | sudo -S shutdown -P now",
+		"boot_command": "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>",
+		"http_directory": "http",
+		"disk_size": 10000,
+	    "vm_name": "packer-centos-6.6-x86_64",
+		"ssh_wait_timeout": "10000s",
+		"shutdown_timeout": "10000s"
 	}],
 	"provisioners": [
 		{
