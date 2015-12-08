@@ -67,9 +67,9 @@ After the Packer build process is complete, go to the `builds` directory and add
 ### Step 4: Create a Vagrantfile
 From any directory you like, type the command `vagrant init`, which will set up a sample `Vagrantfile`. Open the Vagrantfile and make sure the following lines are present:
 
-```config.vm.box = "oe-demo"```
+```config.vm.box = "onearth-demo"```
 
-```config.vm.network "forwarded_port", guest: <chosen_port>, host: <chosen_port>```
+```config.vm.network "forwarded_port", guest: <specified_host_port>, host: <specified_host_port>``` -- *This port number should be the same one you specified in the Packer build process. In order for the TWMS endpoints to work, you'll need to map it to the same port on the host machine.*
 
 ### Step 5: Start the VM
 Use the `vagrant up` command to boot the VM. The demo should now be available at: `localhost:<chosen_port>/onearth/demo`
