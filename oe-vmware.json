@@ -1,0 +1,39 @@
+{
+	"variables": {
+		"host_port": "8080",
+		"repo_url": "https://github.com/nasa-gibs/onearth.git",
+		"repo_tag": "0.8.0"
+	},
+	"builders": [
+	{
+		"type": "vmware-iso",
+		"guest_os_type": "Centos-64",
+		"iso_url": "http://mirror.hmc.edu/centos/6/isos/x86_64/CentOS-6.7-x86_64-minimal.iso",
+		"iso_checksum": "9381a24b8bee2fed0c26896141a64b69",
+		"iso_checksum_type": "md5",
+		"ssh_username": "onearth",
+		"ssh_password": "onearth",
+		"shutdown_command": "echo 'packer' | sudo -S shutdown -P now",
+		"boot_command": "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>",
+		"http_directory": "http",
+		"disk_size": 10000,
+		"headless": false,
+	    "vm_name": "packer-centos-6.6-x86_64",
+		"ssh_wait_timeout": "10000s",
+		"shutdown_timeout": "10000s"
+	}],
+	"provisioners": [
+		{
+			"type": "file",
+			"source": "./resources",
+			"destination": "/home/onearth"
+		},
+		{
+			"type": "shell",
+			"environment_vars": ["HOST_PORT={{user `host_port`}}", "REPO_URL={{user `repo_url`}}", "REPO_TAG={{user `repo_tag`}}"],
+			"execute_command": "echo '{{user `onearth`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+			"script": "bootstrap.sh"
+		}
+		
+	]
+}

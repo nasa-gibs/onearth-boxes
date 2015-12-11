@@ -56,6 +56,11 @@
 	    "vm_name": "packer-centos-6.6-x86_64",
 		"ssh_wait_timeout": "10000s",
 		"shutdown_timeout": "10000s"
+	},
+	{
+		"type": "docker",
+		"image": "centos6",
+		"export_path": "onearth.tar"
 	}],
 	"provisioners": [
 		{

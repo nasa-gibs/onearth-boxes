@@ -19,7 +19,7 @@ To get started with OnEarth-Boxes once you've created a VM image and have it run
 Creation of an OnEarth-Boxes image requires [Packer](http://packer.io) to be installed on your computer.
 
 # Creating an OnEarth VM
-To create a VM, use the `packer build oe-demo.json` command. The included Packer configuration file creates VirtualBox, Vagrant, and VMWare images. Use the `-only` option if you only want to create one type of VM (or don't have VMWare installed on your system).
+To create a VM, use the `packer build <template.json>` command. There are `.json` template files for several different kinds of builds. See below for details.
 
 ## Build Options
 To specify options for the build process, use the `-var` tag, for example:
@@ -39,14 +39,19 @@ In other words, if you're planning to access the VM under `localhost:8888`, it w
 **Note that using older versions of OnEarth may require tweaks to the `bootstrap.sh` script!**
 
 ## Builders
-By default, the `oe-demo.json` file simultaneously builds:
+The following build templates are included:
 
-- A VirtualBox image packaged as a Vagrant box
-- A VMWare image
-- A Parallels image
+- `oe-virtualbox.json` -- A VirtualBox image
+- `oe-vagrant.json` -- A VirtualBox image packaged as a Vagrant box 
+- `oe-vmware.json` -- A VMWare image
+- `oe-parallels.json` -- A Parallels image
+- `oe-docker.json` -- A Docker container
 
-To only create one kind of image, use the `-only` option to specify the specific builder you want. To create a VirtualBox image that isn't packaged for Vagrant, use the `"keep_input_artifact": true` option under the Vagrant provisioner section in `oe-demo.json`.
 
+### Note for building Docker containers
+Currently, Packer only supports building Docker containers in Linux. You'll need to install [Docker](http://www.docker.com/) and [Packer](http://packer.io) and make sure the Docker daemon is active before running the Packer build process.
+
+----
 ## Vagrant info
 Using [Vagrant](https://www.vagrantup.com) is one of the easiest ways to get started with the OnEarth demo VM.
 
@@ -54,7 +59,7 @@ Using [Vagrant](https://www.vagrantup.com) is one of the easiest ways to get sta
 Vagrant is available for Mac, Windows, and Linux. It's free and requires [VirtualBox](https://www.virtualbox.org/).
 
 ### Step 2: Build the Vagrant box with Packer
-Run the default Packer command: `packer build -only=virtualbox-iso oe-demo.json` within the root of this repo. See above for options to customize the install.
+Run the default Packer command: `packer build oe-vagrant.json` within the root of this repo. See above for options to customize the install.
 
 **Note that the build process compiles a lot of software and generates some MRF imagery, so it can take quite a while.**
 
@@ -67,7 +72,7 @@ After the Packer build process is complete, go to the `builds` directory and add
 ### Step 4: Create a Vagrantfile
 From any directory you like, type the command `vagrant init`, which will set up a sample `Vagrantfile`. Open the Vagrantfile and make sure the following lines are present:
 
-```config.vm.box = "oe-demo"```
+```config.vm.box = "onearth-demo"```
 
 ```config.vm.network "forwarded_port", guest: <chosen_port>, host: <chosen_port>```
 
@@ -75,3 +80,14 @@ From any directory you like, type the command `vagrant init`, which will set up 
 Use the `vagrant up` command to boot the VM. The demo should now be available at: `localhost:<chosen_port>/onearth/demo`
 
 You can use the `vagrant ssh` command to open a shell inside the VM. The directory that contains your `Vagrantfile` is mapped to `/vagrant` within the VM by default.
+
+----
+## Docker Info
+[Docker](docker.com) is a great way to run OnEarth as a standalone process
+
+To run the tests, first create a directory for storage of the test results. This directory needs open read/write privileges.
+
+Use the following syntax to create a Docker container and run the tests. The container will exit and stop when the tests are complete.
+`sudo docker run -v <location_of_test_output>:/etc/onearth/config/test/test_results <onearth_image_name> /etc/onearth/config/test/run_tests.sh`
+
+If the tests fail, the output will be stored in a file called `test_error_log` in the test output directory you specified in the `docker run` command. Otherwise, no output file will be created.
