@@ -64,8 +64,8 @@ Run the default Packer command: `packer build oe-vagrant.json` within the root o
 **Note that the build process compiles a lot of software and generates some MRF imagery, so it can take quite a while.**
 
 ### Step 3: Add the Vagrant box
-After the Packer build process is complete, go to the `builds` directory and add the box with this command:
-`vagrant box add --name=onearth-demo packer-centos-6.6-x86_64`
+After the Packer build process is complete, go to the `builds` directory that will be created in the root of the repo and add the box with this command:
+`vagrant box add --name=onearth-demo virtualbox-onearth.box`
 
 **Once the Vagrant box is added, you can create multiple new virtual machines using that box as a base. It's not necessary to rebuild with Packer each time.**
 
@@ -80,6 +80,8 @@ From any directory you like, type the command `vagrant init`, which will set up 
 Use the `vagrant up` command to boot the VM. The demo should now be available at: `localhost:<chosen_port>/onearth/demo`
 
 You can use the `vagrant ssh` command to open a shell inside the VM. The directory that contains your `Vagrantfile` is mapped to `/vagrant` within the VM by default.
+
+**The username and password within the Vagrant VM are `vagrant` and `vagrant`**
 
 ----
 ## Docker Info
