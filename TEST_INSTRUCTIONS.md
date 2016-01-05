@@ -41,4 +41,8 @@ Two tests are included:
 - `test_mrfgen.sh`
 - `test_layer_config.sh`
 
+To run all tests, run:
+
+- `run_all.sh`
+
 The mrfgen test script will run inside a Docker container using the image you created earlier with Packer. If it fails, it will output stderr a logfile to the location you've specified.
