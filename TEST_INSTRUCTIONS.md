@@ -43,6 +43,6 @@ Two tests are included:
 
 To run all tests, run:
 
-- `run_all.sh`
+- `run_all_tests.sh`
 
 The mrfgen test script will run inside a Docker container using the image you created earlier with Packer. If it fails, it will output stderr a logfile to the location you've specified.
