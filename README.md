@@ -60,7 +60,7 @@ Run the default Packer command: `packer build -only=virtualbox-iso oe-demo.json`
 
 ### Step 3: Add the Vagrant box
 After the Packer build process is complete, go to the `builds` directory and add the box with this command:
-`vagrant box add --name=onearth-demo packer-centos-6.6-x86_64`
+`vagrant box add --name=onearth-demo virtualbox-onearth.box`
 
 **Once the Vagrant box is added, you can create multiple new virtual machines using that box as a base. It's not necessary to rebuild with Packer each time.**
 
