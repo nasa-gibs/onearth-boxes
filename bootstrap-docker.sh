@@ -1,3 +1,5 @@
+#!/bin/sh -x
+
 #Projections and their EPSG equivalents
 declare -a PROJECTIONS=(geo webmerc arctic antarctic)
 declare -a PROJEPSGS=(EPSG4326 EPSG3857 EPSG3413 EPSG3031)
@@ -9,7 +11,7 @@ yum groupinstall -y 'Development Tools'
 #Clone user-selected git repo and build RPMS from source
 cd /home/onearth
 git clone $REPO_URL
-cd onearth
+cd gibs-onearth-test-area
 git checkout $REPO_TAG
 
 cd /home/onearth
@@ -20,7 +22,7 @@ make gdal-download gdal-rpm
 yum -y install dist/gibs-gdal-1.11.*.el6.x86_64.rpm
 yum -y install dist/gibs-gdal-devel-*.el6.x86_64.rpm 
 
-cd ../onearth
+cd /home/onearth/gibs-onearth-test-area
 yum-builddep -y deploy/onearth/onearth.spec
 make download onearth-rpm
 yum -y remove numpy
@@ -35,9 +37,6 @@ echo "export LCDIR=/etc/onearth/config" >> ~/.bashrc
 
 #Set Apache to start when machine is restarted
 chkconfig --level 234 httpd on
-
-#Modify sudoers file to keep LCDIR in the  envvars
-sed -i 's/.*LC_TIME LC_ALL LANGUAGE LINGUAS _XKB_CHARSET XAUTHORITY.*/&\nDefaults    env_keep += \"LCDIR\"/' /etc/sudoers
 
 #Replace OnEarth Apache config file with the one that's included in this package
 /bin/cp /home/onearth/resources/on_earth-demo.conf /etc/httpd/conf.d/on_earth-demo.conf

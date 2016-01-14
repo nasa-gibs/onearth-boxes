@@ -2,7 +2,7 @@
 	"variables": {
 		"host_port": "8080",
 		"repo_url": "https://github.com/nasa-gibs/onearth.git",
-		"repo_tag": "0.8.0"
+		"repo_branch": "0.8.0"
 	},
 	"builders": [
 	{
@@ -30,7 +30,7 @@
 		},
 		{
 			"type": "shell",
-			"environment_vars": ["HOST_PORT={{user `host_port`}}", "REPO_URL={{user `repo_url`}}", "REPO_TAG={{user `repo_tag`}}"],
+			"environment_vars": ["HOST_PORT={{user `host_port`}}", "REPO_URL={{user `repo_url`}}", "REPO_TAG={{user `repo_branch`}}"],
 			"execute_command": "echo '{{user `onearth`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
 			"script": "bootstrap.sh"
 		}

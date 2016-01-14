@@ -1,0 +1,6 @@
+#!/bin/sh
+
+cd /home/onearth/resources/test_scripts
+
+./test_layer_config.sh
+./test_mrfgen.sh
