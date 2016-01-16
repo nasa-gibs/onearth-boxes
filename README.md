@@ -24,7 +24,7 @@ To create a VM, use the `packer build <template.json>` command. There are `.json
 ## Build Options
 To specify options for the build process, use the `-var` tag, for example:
 
-```packer build -var "host_port=8888" -var "repo_url=https://github.com/nasa-gibs/onearth.git" -var "repo_tag=v0.8.0" oe-demo.json```
+```packer build -var "host_port=8888" -var "repo_url=https://github.com/nasa-gibs/onearth.git" -var "repo_branch=v0.8.0" oe-demo.json```
 
 ### Available Options
 
@@ -34,7 +34,7 @@ In other words, if you're planning to access the VM under `localhost:8888`, it w
 
 `repo_url` - Use this option to specify the repo Packer will clone to build OnEarth. Default is **[https://github.com/nasa-gibs/onearth.git](https://github.com/nasa-gibs/onearth.git)**.
 
-`repo_tag` - Use this option to specify the version of OnEarth you want to install. This tag will be checked out before the build starts. Default is the latest OnEarth release. **Default is latest release (currently v0.8.0).**
+`repo_branch` - Use this option to specify the version of OnEarth you want to install. This tag will be checked out before the build starts. Default is the latest OnEarth release. **Default is latest release (currently v0.8.0).**
 
 **Note that using older versions of OnEarth may require tweaks to the `bootstrap.sh` script!**
 

@@ -11,7 +11,7 @@ yum groupinstall -y 'Development Tools'
 #Clone user-selected git repo and build RPMS from source
 cd /home/onearth
 git clone $REPO_URL
-cd gibs-onearth-test-area
+cd onearth
 git checkout $REPO_TAG
 
 cd /home/onearth
@@ -22,7 +22,7 @@ make gdal-download gdal-rpm
 yum -y install dist/gibs-gdal-1.11.*.el6.x86_64.rpm
 yum -y install dist/gibs-gdal-devel-*.el6.x86_64.rpm 
 
-cd /home/onearth/gibs-onearth-test-area
+cd /home/onearth/onearth
 yum-builddep -y deploy/onearth/onearth.spec
 make download onearth-rpm
 yum -y remove numpy

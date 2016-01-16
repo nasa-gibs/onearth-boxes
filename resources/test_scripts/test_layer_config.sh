@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cp -R /home/onearth/gibs-onearth-test-area/src/layer_config/test /etc/onearth/config/test
+cp -R /home/onearth/onearth/src/layer_config/test /etc/onearth/config/test
 cd /etc/onearth/config/test
 
 mkdir -p /usr/share/onearth/demo/data/EPSG4326/MODIS_Aqua_Aerosol/2014

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd /home/onearth/gibs-onearth-test-area/src/mrfgen
+cd /home/onearth/onearth/src/mrfgen
 
 # Run test and pipe output to temp file
 ./test_mrfgen.py >> /home/onearth/resources/test_scripts/test_results/mrfgen_error_log 3>&1 1>&2 2>&3
