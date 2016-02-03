@@ -33,7 +33,7 @@ ldconfig -v
 
 #Set LCDIR
 mkdir /home/onearth
-echo "export LCDIR=/etc/onearth/config" >> ~/.bashrc
+echo "export LCDIR=/etc/onearth/config" >> /home/onearth/.bashrc
 
 #Set Apache to start when machine is restarted
 chkconfig --level 234 httpd on

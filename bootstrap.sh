@@ -1,4 +1,4 @@
-:#!/usrenv bash
+#!/usrenv bash
 
 #Projections and their EPSG equivalents
 declare -a PROJECTIONS=(geo webmerc arctic antarctic)
@@ -12,7 +12,7 @@ sudo yum groupinstall -y 'Development Tools'
 cd /home/onearth
 git clone $REPO_URL
 cd onearth
-git checkout tags/$REPO_TAG
+git checkout $REPO_TAG
 
 cd /home/onearth
 git clone https://github.com/nasa-gibs/mrf.git
@@ -30,11 +30,15 @@ yum -y remove numpy
 yum -y install dist/onearth-*.el6.x86_64.rpm dist/onearth-config-*.el6.noarch.rpm dist/onearth-demo-*.el6.noarch.rpm dist/onearth-metrics-*.el6.noarch.rpm dist/onearth-mrfgen-*.el6.x86_64.rpm
 # yum -y remove gibs-gdal-devel
 
+cd ../
+chown -R onearth *
+chgrp -R onearth *
+
 sudo ldconfig -v
 
 #Set LCDIR
-echo "export LCDIR=/etc/onearth/config" >> ~/.bashrc
-source ~/.bashrc
+echo "export LCDIR=/etc/onearth/config" >> /home/onearth/.bashrc
+source /home/onearth/.bashrc
 
 #Set Apache to start when machine is restarted
 chkconfig --level 234 httpd on

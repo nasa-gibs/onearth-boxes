@@ -18,7 +18,7 @@
 		"http_directory": "http",
 		"disk_size": 10000,
 		"headless": false,
-	    "vm_name": "packer-centos-6.6-x86_64",
+	    "vm_name": "onearth-demo_{{user `repo_branch`}}",
 		"ssh_wait_timeout": "10000s",
 		"shutdown_timeout": "10000s"
 	}],
