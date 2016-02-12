@@ -12,7 +12,7 @@ sudo yum groupinstall -y 'Development Tools'
 cd /home/onearth
 git clone $REPO_URL
 cd onearth
-git checkout $REPO_TAG
+git checkout $REPO_BRANCH
 
 cd /home/onearth
 git clone https://github.com/nasa-gibs/mrf.git

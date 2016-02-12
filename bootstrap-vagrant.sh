@@ -12,7 +12,7 @@ yum groupinstall -y 'Development Tools'
 cd /home/vagrant
 git clone $REPO_URL
 cd onearth
-git checkout tags/$REPO_TAG
+git checkout tags/$REPO_BRANCH
 
 cd /home/vagrant
 git clone https://github.com/nasa-gibs/mrf.git

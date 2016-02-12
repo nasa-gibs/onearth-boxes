@@ -36,7 +36,7 @@
 		},
 		{
 			"type": "shell",
-			"environment_vars": ["HOST_PORT={{user `host_port`}}", "REPO_URL={{user `repo_url`}}", "REPO_TAG={{user `repo_branch`}}"],
+			"environment_vars": ["HOST_PORT={{user `host_port`}}", "REPO_URL={{user `repo_url`}}", "REPO_BRANCH={{user `repo_branch`}}"],
 			"execute_command": "echo '{{user `vagrant`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
 			"script": "bootstrap-vagrant.sh"
 		}
