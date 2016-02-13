@@ -34,9 +34,9 @@ In other words, if you're planning to access the VM under `localhost:8888`, it w
 
 `repo_url` - Use this option to specify the repo Packer will clone to build OnEarth. Default is **[https://github.com/nasa-gibs/onearth.git](https://github.com/nasa-gibs/onearth.git)**.
 
-`repo_branch` - Use this option to specify the version of OnEarth you want to install. This tag will be checked out before the build starts. Default is the latest OnEarth release. **Default is latest release (currently v0.8.0).**
+`repo_branch` - Use this option to specify the version of OnEarth you want to install. This tag will be checked out before the build starts. **Default is latest OnEarth release (currently v0.9.0).**
 
-**Note that using older versions of OnEarth may require tweaks to the `bootstrap.sh` script!**
+**Note that using older versions of OnEarth may require tweaks to the `bootstrap.sh` script.**
 
 ## Builders
 The following build templates are included:

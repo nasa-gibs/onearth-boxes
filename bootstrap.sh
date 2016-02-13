@@ -17,6 +17,7 @@ git checkout $REPO_BRANCH
 cd /home/onearth
 git clone https://github.com/nasa-gibs/mrf.git
 cd mrf
+git checkout 0.9.0
 yum-builddep -y deploy/gibs-gdal/gibs-gdal.spec
 make gdal-download gdal-rpm
 yum -y install dist/gibs-gdal-1.11.*.el6.x86_64.rpm
