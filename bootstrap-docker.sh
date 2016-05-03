@@ -14,23 +14,25 @@ git clone $REPO_URL
 cd onearth
 git checkout $REPO_BRANCH
 
+export MRF_VERSION="$(awk '/MRF Version/ {print $NF}' /home/onearth/onearth/src/test/config.txt)"
+
 cd /home/onearth
 git clone https://github.com/nasa-gibs/mrf.git
 cd mrf
-git checkout 0.9.0
+git checkout $MRF_VERSION
+
 yum-builddep -y deploy/gibs-gdal/gibs-gdal.spec
-make gdal-download gdal-rpm
+make gdal-download numpy-download gdal-rpm
+yum -y remove numpy
 yum -y install dist/gibs-gdal-1.11.*.el6.x86_64.rpm
 yum -y install dist/gibs-gdal-devel-*.el6.x86_64.rpm 
 
 cd /home/onearth/onearth
 yum-builddep -y deploy/onearth/onearth.spec
 make download onearth-rpm
-yum -y remove numpy
-yum -y install dist/onearth-*.el6.x86_64.rpm dist/onearth-config-*.el6.noarch.rpm dist/onearth-demo-*.el6.noarch.rpm dist/onearth-metrics-*.el6.noarch.rpm dist/onearth-mrfgen-*.el6.x86_64.rpm
-# yum -y remove gibs-gdal-devel
 
 ldconfig -v
+yum -y install dist/onearth-*.el6.x86_64.rpm dist/onearth-config-*.el6.noarch.rpm dist/onearth-demo-*.el6.noarch.rpm dist/onearth-metrics-*.el6.noarch.rpm dist/onearth-mrfgen-*.el6.x86_64.rpm
 
 #Set LCDIR
 mkdir /home/onearth
