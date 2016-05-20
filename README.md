@@ -85,11 +85,15 @@ You can use the `vagrant ssh` command to open a shell inside the VM. The directo
 
 ----
 ## Docker Info
-[Docker](docker.com) is a great way to run OnEarth as a standalone process
+[Docker](docker.com) is a great way to run OnEarth as a standalone process.
 
-To run the tests, first create a directory for storage of the test results. This directory needs open read/write privileges.
+To run OnEarth within a Docker container, first use Packer to build the Docker image (`packer build oe-docker.json`).
 
-Use the following syntax to create a Docker container and run the tests. The container will exit and stop when the tests are complete.
-`sudo docker run -v <location_of_test_output>:/etc/onearth/config/test/test_results <onearth_image_name> /etc/onearth/config/test/run_tests.sh`
+Then, to run a container, use the `docker run` command. You'll want to follow something like this:
 
-If the tests fail, the output will be stored in a file called `test_error_log` in the test output directory you specified in the `docker run` command. Otherwise, no output file will be created.
+`docker run -d -p <host_port>:<container_port> gibs/onearth:1.0.0 apachectl -D FOREGROUND`
+
+So to run a Docker container that's accessible via port 8080 on the host machine, run 
+`docker run -d -p 80:8080 gibs/onearth:1.0.0 apachectl -D FOREGROUND`.
+
+You can then view the OnEarth demo page by pointing your browser to: **[http://localhost:8080/onearth/demo](http://localhost:8080/onearth/demo)**.
