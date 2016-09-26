@@ -8,7 +8,7 @@
 	{
 		"type": "virtualbox-iso",
 		"guest_os_type": "RedHat_64",
-		"iso_url": "http://mirror.hmc.edu/centos/6/isos/x86_64/CentOS-6.7-x86_64-minimal.iso",
+		"iso_url": "http://mirrors.usc.edu/pub/linux/distributions/centos/6.8/isos/x86_64/CentOS-6.8-x86_64-minimal.iso",
 		"iso_checksum": "9381a24b8bee2fed0c26896141a64b69",
 		"iso_checksum_type": "md5",
 		"ssh_username": "onearth",

@@ -31,6 +31,7 @@ cd ../onearth
 yum-builddep -y deploy/onearth/onearth.spec
 source /home/onearth/.bashrc
 make download onearth-rpm
+
 ldconfig -v
 yum -y install dist/onearth-*.el6.x86_64.rpm dist/onearth-config-*.el6.noarch.rpm dist/onearth-demo-*.el6.noarch.rpm dist/onearth-metrics-*.el6.noarch.rpm dist/onearth-mrfgen-*.el6.x86_64.rpm
 
