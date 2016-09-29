@@ -5,7 +5,8 @@ declare -a PROJECTIONS=(geo webmerc arctic antarctic)
 declare -a PROJEPSGS=(EPSG4326 EPSG3857 EPSG3413 EPSG3031)
 
 #Install Apache and EPEL
-yum -y install epel-release httpd httpd-devel yum-utils ccache rpmdevtools mock wget @buildsys-build
+yum -y install epel-release 
+yum -y install httpd httpd-devel yum-utils ccache rpmdevtools mock wget @buildsys-build
 
 #Clone user-selected git repo and build RPMS from source
 cd /home/vagrant
@@ -23,16 +24,15 @@ git checkout $MRF_VERSION
 
 yum-builddep -y deploy/gibs-gdal/gibs-gdal.spec
 make gdal-download numpy-download gdal-rpm
-yum -y remove numpy
-yum -y install dist/gibs-gdal-1.11.*.el6.x86_64.rpm
-yum -y install dist/gibs-gdal-devel-*.el6.x86_64.rpm 
+yum -y install dist/gibs-gdal*.rpm
 
 cd ../onearth
 yum-builddep -y deploy/onearth/onearth.spec
 source /home/vagrant/.bashrc
 make download onearth-rpm
+
 ldconfig -v
-yum -y install dist/onearth-*.el6.x86_64.rpm dist/onearth-config-*.el6.noarch.rpm dist/onearth-demo-*.el6.noarch.rpm dist/onearth-metrics-*.el6.noarch.rpm dist/onearth-mrfgen-*.el6.x86_64.rpm
+yum -y install dist/onearth*.rpm
 
 cd ..
 chown -R vagrant *
@@ -65,10 +65,10 @@ curl -# -o /home/vagrant/resources/source_images/blue_marble.jpg http://eoimages
 for PROJECTION in "${PROJECTIONS[@]}"
 do
 	 mkdir /usr/share/onearth/demo/wmts-$PROJECTION/
-	 /bin/cp /usr/share/onearth/apache/{wmts.cgi,black.jpg,transparent.png} /usr/share/onearth/demo/wmts-$PROJECTION/
+	 /bin/cp /usr/share/onearth/demo/wmts-geo/{wmts.cgi,black.jpg,transparent.png} /usr/share/onearth/demo/wmts-$PROJECTION/
 	 /bin/cp /home/vagrant/resources/endpoint_configs/wmts-$PROJECTION/{*.js,*.html} /usr/share/onearth/demo/wmts-$PROJECTION/
 	 mkdir -p /usr/share/onearth/demo/twms-$PROJECTION/.lib
-	 ln -s /usr/share/onearth/apache/* /usr/share/onearth/demo/twms-$PROJECTION/
+	 ln -s /home/vagrant/onearth/src/cgi/twms.cgi /usr/share/onearth/demo/twms-$PROJECTION/
 done
 /bin/cp /home/vagrant/resources/endpoint_configs/index.html /usr/share/onearth/demo
 
@@ -76,24 +76,24 @@ done
 #and copy layer config
 
 #Blue marble - geographic and webmercator (using same source image)
-declare -a MARBLE_PROJECTIONS=(geo webmerc)
-for INDEX in {0..1}
-do 
-	#Copy image files and set up MRF process dirs
-	mkdir -p /home/vagrant/resources/generated_mrfs/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}/{source_images,working_dir,logfile_dir,output_dir,empty_tiles}
-	/bin/cp /home/vagrant/resources/source_images/blue_marble.* /home/vagrant/resources/generated_mrfs/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}/source_images/
-	/bin/cp /home/vagrant/resources/mrf_configs/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}_config.xml /home/vagrant/resources/generated_mrfs/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}/
-	/bin/cp /usr/share/onearth/apache/black.jpg /home/vagrant/resources/generated_mrfs/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}/empty_tiles/
-	cd /home/vagrant/resources/generated_mrfs/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}/
+	declare -a MARBLE_PROJECTIONS=(geo webmerc)
+	for INDEX in {0..1}
+	do 
+		#Copy image files and set up MRF process dirs
+		mkdir -p /home/vagrant/resources/generated_mrfs/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}/{source_images,working_dir,logfile_dir,output_dir,empty_tiles}
+		/bin/cp /home/vagrant/resources/source_images/blue_marble.* /home/vagrant/resources/generated_mrfs/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}/source_images/
+		/bin/cp /home/vagrant/resources/mrf_configs/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}_config.xml /home/vagrant/resources/generated_mrfs/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}/
+		/bin/cp /usr/share/onearth/demo/wmts-geo/black.jpg /home/vagrant/resources/generated_mrfs/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}/empty_tiles/
+		cd /home/vagrant/resources/generated_mrfs/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}/
 
-	mrfgen -c /home/vagrant/resources/generated_mrfs/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}_config.xml
+		mrfgen -c /home/vagrant/resources/generated_mrfs/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}_config.xml
 
-	#Create data archive directories and copy MRF files
-	 mkdir -p /usr/share/onearth/demo/data/${PROJEPSGS[$INDEX]}/blue_marble/
-	for f in /home/vagrant/resources/generated_mrfs/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}/output_dir/*; do mv "$f" "${f//blue_marble2004336_/blue_marble}"; done
-	 /bin/cp /home/vagrant/resources/generated_mrfs/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}/output_dir/* /usr/share/onearth/demo/data/${PROJEPSGS[$INDEX]}/blue_marble/
-	 /bin/cp /home/vagrant/resources/generated_mrfs/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}/output_dir/blue_marble.mrf /etc/onearth/config/headers/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}.mrf
-done
+		#Create data archive directories and copy MRF files
+		 mkdir -p /usr/share/onearth/demo/data/${PROJEPSGS[$INDEX]}/blue_marble/
+		for f in /home/vagrant/resources/generated_mrfs/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}/output_dir/*; do mv "$f" "${f//blue_marble2004336_/blue_marble}"; done
+		 /bin/cp /home/vagrant/resources/generated_mrfs/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}/output_dir/* /usr/share/onearth/demo/data/${PROJEPSGS[$INDEX]}/blue_marble/
+		 /bin/cp /home/vagrant/resources/generated_mrfs/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}/output_dir/blue_marble.mrf /etc/onearth/config/headers/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}.mrf
+	done
 
 #MODIS data - right now, we're only using it in geo projection 
 declare -a MODIS_PROJECTIONS=(geo)
@@ -103,17 +103,17 @@ do
 	mkdir -p /home/vagrant/resources/generated_mrfs/MYR4ODLOLLDY_global_2014277_10km_${MODIS_PROJECTIONS[$INDEX]}/{source_images,working_dir,logfile_dir,output_dir,empty_tiles}
 	/bin/cp /home/vagrant/resources/source_images/MYR4ODLOLLDY_global_2014277_10km.* /home/vagrant/resources/generated_mrfs/MYR4ODLOLLDY_global_2014277_10km_${MODIS_PROJECTIONS[$INDEX]}/source_images/
 	/bin/cp /home/vagrant/resources/mrf_configs/MYR4ODLOLLDY_global_2014277_10km_${MODIS_PROJECTIONS[$INDEX]}_config.xml /home/vagrant/resources/generated_mrfs/MYR4ODLOLLDY_global_2014277_10km_${MODIS_PROJECTIONS[$INDEX]}/
-	/bin/cp /usr/share/onearth/apache/transparent.png /home/vagrant/resources/generated_mrfs/MYR4ODLOLLDY_global_2014277_10km_${MODIS_PROJECTIONS[$INDEX]}/empty_tiles/
+	/bin/cp /usr/share/onearth/demo/wmts-geo/transparent.png /home/vagrant/resources/generated_mrfs/MYR4ODLOLLDY_global_2014277_10km_${MODIS_PROJECTIONS[$INDEX]}/empty_tiles/
 	cd /home/vagrant/resources/generated_mrfs/MYR4ODLOLLDY_global_2014277_10km_${MODIS_PROJECTIONS[$INDEX]}/
 
 	mrfgen -c /home/vagrant/resources/generated_mrfs/MYR4ODLOLLDY_global_2014277_10km_${MODIS_PROJECTIONS[$INDEX]}/MYR4ODLOLLDY_global_2014277_10km_${MODIS_PROJECTIONS[$INDEX]}_config.xml
  
 	#Create data archive directories and copy MRF files
-	 mkdir -p /usr/share/onearth/demo/data/${PROJEPSGS[$INDEX]}/MYR4ODLOLLDY_global_10km/{2014,YYYY}
-	 /bin/cp /home/vagrant/resources/generated_mrfs/MYR4ODLOLLDY_global_2014277_10km_${MODIS_PROJECTIONS[$INDEX]}/output_dir/MYR4ODLOLLDY2014277_.* /usr/share/onearth/demo/data/${PROJEPSGS[$INDEX]}/MYR4ODLOLLDY_global_10km/2014/
-	 find /usr/share/onearth/demo/data/EPSG4326/MYR4ODLOLLDY_global_10km/2014 -name 'MYR4ODLOLLDY2014277*' -type f -exec bash -c 'ln -s "$1" "${1/2014277/TTTTTTT}"' -- {} \;
-	 find /usr/share/onearth/demo/data/EPSG4326/MYR4ODLOLLDY_global_10km/2014 -name 'MYR4ODLOLLDYTTTTTTT*' -type l -exec bash -c 'mv "$1" "/usr/share/onearth/demo/data/EPSG4326/MYR4ODLOLLDY_global_10km/YYYY/"' -- {} \;
-	 /bin/cp /home/vagrant/resources/generated_mrfs/MYR4ODLOLLDY_global_2014277_10km_${MODIS_PROJECTIONS[$INDEX]}/output_dir/MYR4ODLOLLDY2014277_.mrf /etc/onearth/config/headers/MYR4ODLOLLDY_${MODIS_PROJECTIONS[$INDEX]}.mrf
+	mkdir -p /usr/share/onearth/demo/data/${PROJEPSGS[$INDEX]}/MYR4ODLOLLDY_global_10km/{2014,YYYY}
+	/bin/cp /home/vagrant/resources/generated_mrfs/MYR4ODLOLLDY_global_2014277_10km_${MODIS_PROJECTIONS[$INDEX]}/output_dir/MYR4ODLOLLDY2014277_.* /usr/share/onearth/demo/data/${PROJEPSGS[$INDEX]}/MYR4ODLOLLDY_global_10km/2014/
+	find /usr/share/onearth/demo/data/EPSG4326/MYR4ODLOLLDY_global_10km/2014 -name 'MYR4ODLOLLDY2014277*' -type f -exec bash -c 'ln -s "$1" "${1/2014277/TTTTTTT}"' -- {} \;
+	find /usr/share/onearth/demo/data/EPSG4326/MYR4ODLOLLDY_global_10km/2014 -name 'MYR4ODLOLLDYTTTTTTT*' -type l -exec bash -c 'mv "$1" "/usr/share/onearth/demo/data/EPSG4326/MYR4ODLOLLDY_global_10km/YYYY/"' -- {} \;
+	/bin/cp /home/vagrant/resources/generated_mrfs/MYR4ODLOLLDY_global_2014277_10km_${MODIS_PROJECTIONS[$INDEX]}/output_dir/MYR4ODLOLLDY2014277_.mrf /etc/onearth/config/headers/MYR4ODLOLLDY_${MODIS_PROJECTIONS[$INDEX]}.mrf
 done
 
 #Set up and copy the pre-made MRFs
@@ -130,10 +130,10 @@ done
 yum -y install proj-epsg mapserver
 mkdir -p /usr/share/onearth/demo/mapserver
 /bin/cp /home/vagrant/resources/mapserver_config/* /usr/share/onearth/demo/mapserver
-ln -s /usr/libexec/mapserver /usr/share/onearth/demo/mapserver/mapserver.cgi
+ln -s /usr/bin/mapserv /usr/share/onearth/demo/mapserver/mapserver.cgi
 
 #Compile the KML script and copy to TWMS dirs
-cd /usr/share/onearth/apache/kml
+cd /home/vagrant/onearth/src/cgi/kml
 for PROJECTION in "${PROJECTIONS[@]}"
 do
 	 make WEB_HOST=localhost:$HOST_PORT/onearth/demo/twms/$PROJECTION
@@ -144,3 +144,6 @@ done
 #Copy layer config files, run config tool
 /bin/cp /home/vagrant/resources/layer_configs/* /etc/onearth/config/layers/
 LCDIR=/etc/onearth/config oe_configure_layer --create_mapfile --layer_dir=/etc/onearth/config/layers/
+
+#Have to deactivate the demo stuff bundled with OnEarth for the time being
+mv /etc/httpd/conf.d/onearth-demo.conf /etc/httpd/conf.d/onearth-demo.conf.example

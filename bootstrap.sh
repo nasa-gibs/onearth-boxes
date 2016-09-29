@@ -5,8 +5,10 @@ declare -a PROJECTIONS=(geo webmerc arctic antarctic)
 declare -a PROJEPSGS=(EPSG4326 EPSG3857 EPSG3413 EPSG3031)
 
 #Install Apache and EPEL
-yum -y install epel-release httpd httpd-devel yum-utils ccache rpmdevtools mock wget @buildsys-build
+yum -y install epel-release 
+yum -y install httpd httpd-devel yum-utils ccache rpmdevtools mock wget @buildsys-build
 yum -y groupinstall "Development Tools"
+
 #Clone user-selected git repo and build RPMS from source
 cd /home/onearth
 git clone $REPO_URL
@@ -23,9 +25,7 @@ git checkout $MRF_VERSION
 
 yum-builddep -y deploy/gibs-gdal/gibs-gdal.spec
 make gdal-download numpy-download gdal-rpm
-yum -y remove numpy
-yum -y install dist/gibs-gdal-1.11.*.el6.x86_64.rpm
-yum -y install dist/gibs-gdal-devel-*.el6.x86_64.rpm 
+yum -y install dist/gibs-gdal*.rpm
 
 cd ../onearth
 yum-builddep -y deploy/onearth/onearth.spec
@@ -33,9 +33,9 @@ source /home/onearth/.bashrc
 make download onearth-rpm
 
 ldconfig -v
-yum -y install dist/onearth-*.el6.x86_64.rpm dist/onearth-config-*.el6.noarch.rpm dist/onearth-demo-*.el6.noarch.rpm dist/onearth-metrics-*.el6.noarch.rpm dist/onearth-mrfgen-*.el6.x86_64.rpm
+yum -y install dist/onearth*.rpm
 
-cd ../
+cd ..
 chown -R onearth *
 chgrp -R onearth *
 
@@ -66,10 +66,10 @@ curl -# -o /home/onearth/resources/source_images/blue_marble.jpg http://eoimages
 for PROJECTION in "${PROJECTIONS[@]}"
 do
 	 mkdir /usr/share/onearth/demo/wmts-$PROJECTION/
-	 /bin/cp /usr/share/onearth/apache/{wmts.cgi,black.jpg,transparent.png} /usr/share/onearth/demo/wmts-$PROJECTION/
+	 /bin/cp /usr/share/onearth/demo/wmts-geo/{wmts.cgi,black.jpg,transparent.png} /usr/share/onearth/demo/wmts-$PROJECTION/
 	 /bin/cp /home/onearth/resources/endpoint_configs/wmts-$PROJECTION/{*.js,*.html} /usr/share/onearth/demo/wmts-$PROJECTION/
 	 mkdir -p /usr/share/onearth/demo/twms-$PROJECTION/.lib
-	 ln -s /usr/share/onearth/apache/* /usr/share/onearth/demo/twms-$PROJECTION/
+	 ln -s /home/onearth/onearth/src/cgi/twms.cgi /usr/share/onearth/demo/twms-$PROJECTION/
 done
 /bin/cp /home/onearth/resources/endpoint_configs/index.html /usr/share/onearth/demo
 
@@ -84,7 +84,7 @@ do
 	mkdir -p /home/onearth/resources/generated_mrfs/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}/{source_images,working_dir,logfile_dir,output_dir,empty_tiles}
 	/bin/cp /home/onearth/resources/source_images/blue_marble.* /home/onearth/resources/generated_mrfs/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}/source_images/
 	/bin/cp /home/onearth/resources/mrf_configs/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}_config.xml /home/onearth/resources/generated_mrfs/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}/
-	/bin/cp /usr/share/onearth/apache/black.jpg /home/onearth/resources/generated_mrfs/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}/empty_tiles/
+		/bin/cp /usr/share/onearth/demo/wmts-geo/black.jpg /home/onearth/resources/generated_mrfs/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}/empty_tiles/
 	cd /home/onearth/resources/generated_mrfs/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}/
 
 	mrfgen -c /home/onearth/resources/generated_mrfs/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}_config.xml
@@ -104,7 +104,7 @@ do
 	mkdir -p /home/onearth/resources/generated_mrfs/MYR4ODLOLLDY_global_2014277_10km_${MODIS_PROJECTIONS[$INDEX]}/{source_images,working_dir,logfile_dir,output_dir,empty_tiles}
 	/bin/cp /home/onearth/resources/source_images/MYR4ODLOLLDY_global_2014277_10km.* /home/onearth/resources/generated_mrfs/MYR4ODLOLLDY_global_2014277_10km_${MODIS_PROJECTIONS[$INDEX]}/source_images/
 	/bin/cp /home/onearth/resources/mrf_configs/MYR4ODLOLLDY_global_2014277_10km_${MODIS_PROJECTIONS[$INDEX]}_config.xml /home/onearth/resources/generated_mrfs/MYR4ODLOLLDY_global_2014277_10km_${MODIS_PROJECTIONS[$INDEX]}/
-	/bin/cp /usr/share/onearth/apache/transparent.png /home/onearth/resources/generated_mrfs/MYR4ODLOLLDY_global_2014277_10km_${MODIS_PROJECTIONS[$INDEX]}/empty_tiles/
+	/bin/cp /usr/share/onearth/demo/wmts-geo/transparent.png /home/onearth/resources/generated_mrfs/MYR4ODLOLLDY_global_2014277_10km_${MODIS_PROJECTIONS[$INDEX]}/empty_tiles/
 	cd /home/onearth/resources/generated_mrfs/MYR4ODLOLLDY_global_2014277_10km_${MODIS_PROJECTIONS[$INDEX]}/
 
 	mrfgen -c /home/onearth/resources/generated_mrfs/MYR4ODLOLLDY_global_2014277_10km_${MODIS_PROJECTIONS[$INDEX]}/MYR4ODLOLLDY_global_2014277_10km_${MODIS_PROJECTIONS[$INDEX]}_config.xml
@@ -128,10 +128,9 @@ do
 done
 
 #Install and copy the Mapserver config files and endpoints
-yum -y install proj-epsg mapserver
 mkdir -p /usr/share/onearth/demo/mapserver
 /bin/cp /home/onearth/resources/mapserver_config/* /usr/share/onearth/demo/mapserver
-ln -s /usr/libexec/mapserver /usr/share/onearth/demo/mapserver/mapserver.cgi
+ln -s /usr/bin/mapserv /usr/share/onearth/demo/mapserver/mapserver.cgi
 
 #Compile the KML script and copy to TWMS dirs
 cd /usr/share/onearth/apache/kml
@@ -145,3 +144,6 @@ done
 #Copy layer config files, run config tool
 /bin/cp /home/onearth/resources/layer_configs/* /etc/onearth/config/layers/
 LCDIR=/etc/onearth/config oe_configure_layer --create_mapfile --layer_dir=/etc/onearth/config/layers/
+
+#Have to deactivate the demo stuff bundled with OnEarth for the time being
+mv /etc/httpd/conf.d/onearth-demo.conf /etc/httpd/conf.d/onearth-demo.conf.example
