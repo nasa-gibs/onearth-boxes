@@ -33,16 +33,16 @@ projection: ol.proj.get("EPSG:4326"),
     var blue_marble = new ol.layer.Image({
 	extent: [-180,-90,180,90],
 	source: new ol.source.ImageWMS({
-	  url: './mapserver.cgi',
-	  params: {'LAYERS': 'blue_marble', 'MAP': 'demo.map', 'FORMAT': 'image/jpeg'}
+	  url: '../wms/epsg4326/wms.cgi'',
+	  params: {'LAYERS': 'blue_marble', 'FORMAT': 'image/jpeg'}
 	})
     })
     
     var modis_layer = new ol.layer.Image({
         extent: [-180,-90,180,90],
         source: new ol.source.ImageWMS({
-          url: './mapserver.cgi',
-          params: {'LAYERS': 'MYR4ODLOLLDY_global_10km', 'MAP': 'demo.map', 'FORMAT': 'image/png'}
+          url: '../wms/epsg4326/wms.cgi'',
+          params: {'LAYERS': 'MYR4ODLOLLDY_global_10km', 'FORMAT': 'image/png'}
         })
     })
 

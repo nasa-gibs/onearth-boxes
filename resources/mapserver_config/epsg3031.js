@@ -37,7 +37,7 @@ window.onload = function() {
     var blue_marble = new ol.layer.Image({
 	extent: [-4194304, -4194304, 4194304, 4194304],
 	source: new ol.source.ImageWMS({
-	  url: './mapserver.cgi',
+	  url: './wms.cgi',
 	  params: {'LAYERS': 'blue_marble_antarctic', 'MAP': 'demo.map', 'FORMAT': 'image/jpeg'}
 	})
     })
