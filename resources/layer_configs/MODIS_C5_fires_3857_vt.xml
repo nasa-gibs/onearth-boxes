@@ -10,5 +10,5 @@
  <Projection>EPSG:3857</Projection> 
  <EnvironmentConfig>/etc/onearth/config/conf/environment_webmercator.xml</EnvironmentConfig>
  <ArchiveLocation static="false" year="true">MODIS_C5_fires</ArchiveLocation>
- <Time>DETECT</Time>
+ <Time>DETECT/P1D</Time>
 </LayerConfiguration>

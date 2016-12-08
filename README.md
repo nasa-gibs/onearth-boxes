@@ -65,7 +65,7 @@ Run the default Packer command: `packer build oe-vagrant.json` within the root o
 
 ### Step 3: Add the Vagrant box
 After the Packer build process is complete, go to the `builds` directory that will be created in the root of the repo and add the box with this command:
-`vagrant box add --name=onearth-demo "onearth-demo_<chosen branch name>.box`
+`vagrant box add --name=onearth-demo builds/virtualbox-onearth.box`
 
 **Once the Vagrant box is added, you can create multiple new virtual machines using that box as a base. It's not necessary to rebuild with Packer each time.**
 

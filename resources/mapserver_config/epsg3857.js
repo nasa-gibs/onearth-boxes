@@ -33,8 +33,8 @@ projection: ol.proj.get("EPSG:3857"),
     var blue_marble = new ol.layer.Image({
 	extent: [-20037508.34, -20037508.34, 20037508.34, 20037508.34],
 	source: new ol.source.ImageWMS({
-	  url: '../wms/epsg3857/wms.cgi'',
-	  params: {'LAYERS': 'blue_marble_webmerc', 'FORMAT': 'image/jpeg'}
+	  url: '../wms/epsg3857/wms.cgi',
+	  params: {'LAYERS': 'blue_marble', 'FORMAT': 'image/jpeg'}
 	})
     })
     

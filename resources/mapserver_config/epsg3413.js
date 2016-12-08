@@ -38,8 +38,8 @@ window.onload = function() {
     var blue_marble = new ol.layer.Image({
 	extent: [-4194304, -4194304, 4194304, 4194304],
 	source: new ol.source.ImageWMS({
-	  url: './wms.cgi',
-	  params: {'LAYERS': 'blue_marble_arctic', 'MAP': 'demo.map', 'FORMAT': 'image/jpeg'}
+	  url: '../wms/epsg3413/wms.cgi',
+	  params: {'LAYERS': 'blue_marble', 'FORMAT': 'image/jpeg'}
 	})
     })
     

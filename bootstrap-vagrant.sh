@@ -134,11 +134,11 @@ done
 	# For MVT MRF
 	oe_vectorgen -c /home/vagrant/resources/generated_mrfs/MODIS_C5_fires/MODIS_C5_fires_vt.xml
 	#Create data archive directories and copy MRF files
-	mkdir -p /usr/share/onearth/demo/data/webmerc/MODIS_C5_fires/{2016,YYYY}
-	/bin/cp /home/vagrant/resources/generated_mrfs/MODIS_C5_fires/output_dir/* /usr/share/onearth/demo/data/webmerc/MODIS_C5_fires/2016
-	find /usr/share/onearth/demo/data/webmerc/MODIS_C5_fires/2016/ -name 'MODIS_C5_fires2016110*' -type f -exec bash -c 'ln -s "$1" "${1/2016110/TTTTTTT}"' -- {} \;
-	find /usr/share/onearth/demo/data/webmerc/MODIS_C5_fires/2016/ -name 'MODIS_C5_firesTTTTTTT*' -type l -exec bash -c 'mv "$1" "/usr/share/onearth/demo/data/webmerc/MODIS_C5_fires/YYYY/"' -- {} \;
-	/bin/cp /usr/share/onearth/demo/data/webmerc/MODIS_C5_fires/2016/MODIS_C5_fires2016110_.mrf /etc/onearth/config/headers/MODIS_C5_firesTTTTTTT_.mrf
+	mkdir -p /usr/share/onearth/demo/data/EPSG3857/MODIS_C5_fires/{2016,YYYY}
+	/bin/cp /home/vagrant/resources/generated_mrfs/MODIS_C5_fires/output_dir/* /usr/share/onearth/demo/data/EPSG3857/MODIS_C5_fires/2016
+	find /usr/share/onearth/demo/data/EPSG3857/MODIS_C5_fires/2016/ -name 'MODIS_C5_fires2016110*' -type f -exec bash -c 'ln -s "$1" "${1/2016110/TTTTTTT}"' -- {} \;
+	find /usr/share/onearth/demo/data/EPSG3857/MODIS_C5_fires/2016/ -name 'MODIS_C5_firesTTTTTTT*' -type l -exec bash -c 'mv "$1" "/usr/share/onearth/demo/data/EPSG3857/MODIS_C5_fires/YYYY/"' -- {} \;
+	/bin/cp /usr/share/onearth/demo/data/EPSG3857/MODIS_C5_fires/2016/MODIS_C5_fires2016110_.mrf /etc/onearth/config/headers/MODIS_C5_firesTTTTTTT_.mrf
 
 #Terra_Orbit_Dsc_Dots
 	#Copy image files and set up MRF process dirs
@@ -156,11 +156,11 @@ done
 	# For MVT MRF
 	oe_vectorgen -c /home/vagrant/resources/generated_mrfs/Terra_Orbit_Dsc_Dots/Terra_Orbit_Dsc_Dots_vt.xml
 	#Create data archive directories and copy MRF files
-	mkdir -p /usr/share/onearth/demo/data/webmerc/Terra_Orbit_Dsc_Dots/{2016,YYYY}
-	/bin/cp /home/vagrant/resources/generated_mrfs/Terra_Orbit_Dsc_Dots/output_dir/* /usr/share/onearth/demo/data/webmerc/Terra_Orbit_Dsc_Dots/2016
-	find /usr/share/onearth/demo/data/webmerc/Terra_Orbit_Dsc_Dots/2016/ -name 'Terra_Orbit_Dsc_Dots2016064*' -type f -exec bash -c 'ln -s "$1" "${1/2016064/TTTTTTT}"' -- {} \;
-	find /usr/share/onearth/demo/data/webmerc/Terra_Orbit_Dsc_Dots/2016/ -name 'Terra_Orbit_Dsc_DotsTTTTTTT*' -type l -exec bash -c 'mv "$1" "/usr/share/onearth/demo/data/webmerc/Terra_Orbit_Dsc_Dots/YYYY/"' -- {} \;
-	/bin/cp /usr/share/onearth/demo/data/webmerc/Terra_Orbit_Dsc_Dots/2016/Terra_Orbit_Dsc_Dots2016064_.mrf /etc/onearth/config/headers/Terra_Orbit_Dsc_DotsTTTTTTT_.mrf
+	mkdir -p /usr/share/onearth/demo/data/EPSG3857/Terra_Orbit_Dsc_Dots/{2016,YYYY}
+	/bin/cp /home/vagrant/resources/generated_mrfs/Terra_Orbit_Dsc_Dots/output_dir/* /usr/share/onearth/demo/data/EPSG3857/Terra_Orbit_Dsc_Dots/2016
+	find /usr/share/onearth/demo/data/EPSG3857/Terra_Orbit_Dsc_Dots/2016/ -name 'Terra_Orbit_Dsc_Dots2016064*' -type f -exec bash -c 'ln -s "$1" "${1/2016064/TTTTTTT}"' -- {} \;
+	find /usr/share/onearth/demo/data/EPSG3857/Terra_Orbit_Dsc_Dots/2016/ -name 'Terra_Orbit_Dsc_DotsTTTTTTT*' -type l -exec bash -c 'mv "$1" "/usr/share/onearth/demo/data/EPSG3857/Terra_Orbit_Dsc_Dots/YYYY/"' -- {} \;
+	/bin/cp /usr/share/onearth/demo/data/EPSG3857/Terra_Orbit_Dsc_Dots/2016/Terra_Orbit_Dsc_Dots2016064_.mrf /etc/onearth/config/headers/Terra_Orbit_Dsc_DotsTTTTTTT_.mrf
 
 #Set up and copy the pre-made MRFs
 declare -a MRF_PROJS=(arctic antarctic)
@@ -190,8 +190,8 @@ done
 mkdir -p /etc/onearth/config/styles
 /bin/cp /home/vagrant/resources/styles/* /etc/onearth/config/styles
 mkdir -p /usr/share/onearth/demo/mapserver
+chmod +x /usr/share/onearth/demo/mapserver_config/wms.cgi
 /bin/cp /home/vagrant/resources/mapserver_config/* /usr/share/onearth/demo/mapserver
-chmod +x /usr/share/onearth/demo/mapserver/wms.cgi
 
 mkdir -p /usr/share/onearth/demo/wms
 mkdir -p /usr/share/onearth/demo/wfs
@@ -199,10 +199,18 @@ mkdir -p /usr/share/onearth/demo/wms/epsg4326
 mkdir -p /usr/share/onearth/demo/wfs/epsg4326
 mkdir -p /usr/share/onearth/demo/wms/epsg3857
 mkdir -p /usr/share/onearth/demo/wfs/epsg3857
+mkdir -p /usr/share/onearth/demo/wms/epsg3031
+mkdir -p /usr/share/onearth/demo/wfs/epsg3031
+mkdir -p /usr/share/onearth/demo/wms/epsg3413
+mkdir -p /usr/share/onearth/demo/wfs/epsg3413
 /bin/cp /home/vagrant/resources/mapserver_config/wms.cgi /usr/share/onearth/demo/wms/epsg4326
 /bin/cp /home/vagrant/resources/mapserver_config/wms.cgi /usr/share/onearth/demo/wms/epsg3857
+/bin/cp /home/vagrant/resources/mapserver_config/wms.cgi /usr/share/onearth/demo/wms/epsg3031
+/bin/cp /home/vagrant/resources/mapserver_config/wms.cgi /usr/share/onearth/demo/wms/epsg3413
 /bin/cp /home/vagrant/resources/mapserver_config/wms.cgi /usr/share/onearth/demo/wfs/epsg4326/wfs.cgi
 /bin/cp /home/vagrant/resources/mapserver_config/wms.cgi /usr/share/onearth/demo/wfs/epsg3857/wfs.cgi
+/bin/cp /home/vagrant/resources/mapserver_config/wms.cgi /usr/share/onearth/demo/wfs/epsg3031/wfs.cgi
+/bin/cp /home/vagrant/resources/mapserver_config/wms.cgi /usr/share/onearth/demo/wfs/epsg3413/wfs.cgi
 
 #Compile the KML script and copy to TWMS dirs
 cd /home/vagrant/onearth/src/cgi/kml
