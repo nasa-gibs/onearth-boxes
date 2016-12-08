@@ -3,7 +3,7 @@
  <Identifier>Terra_Orbit_Dsc_Dots</Identifier>
  <Title>Terra_Orbit_Dsc_Dots</Title>
  <FileNamePrefix>Terra_Orbit_Dsc_Dots</FileNamePrefix>
- <Projection>EPSG:4326</Projection> 
+ <Projection>EPSG:3857</Projection> 
  <EnvironmentConfig>/etc/onearth/config/conf/environment_webmercator.xml</EnvironmentConfig>
  <ArchiveLocation static="false" year="true">/usr/share/onearth/demo/data/shapefiles/Terra_Orbit_Dsc_Dots</ArchiveLocation>
  <VectorType>POINT</VectorType>
