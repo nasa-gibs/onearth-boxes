@@ -9,32 +9,16 @@ yum -y install yum-utils
 yum -y install epel-release
 yum -y install httpd httpd-devel ccache rpmdevtools mock wget @buildsys-build
 
-#Clone user-selected git repo and build RPMS from source
 cd /home/vagrant
-git clone $REPO_URL
-cd onearth
-git checkout $REPO_BRANCH
 
-#Get the version of MRF that we're using to build
-export MRF_VERSION="$(awk '/MRF Version/ {print $NF}' /home/vagrant/onearth/src/test/config.txt)"
-
-cd /home/vagrant
-git clone https://github.com/nasa-gibs/mrf.git
-cd mrf
-git checkout $MRF_VERSION
-
-yum-builddep -y deploy/gibs-gdal/gibs-gdal.spec
-make gdal-download numpy-download gdal-rpm
-yum -y install dist/gibs-gdal-*.rpm
-
-cd ../onearth
+# Dependency not provided in CentOS6
 yum -y install https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-6-x86_64/pgdg-centos96-9.6-3.noarch.rpm
-yum-builddep -y deploy/onearth/onearth.spec
-source /home/vagrant/.bashrc
-make download onearth-rpm
 
-ldconfig -v
-yum -y install dist/onearth*.rpm
+# Download, install onearth stuff
+wget https://github.com/nasa-gibs/onearth/releases/download/v1.2.1/onearth-1.2.1.tar.gz
+tar xfvz onearth-1.2.1.tar.gz
+yum install -y gibs-gdal*.rpm
+yum install -y onearth*.rpm
 
 cd ..
 chown -R vagrant *

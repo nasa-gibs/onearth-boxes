@@ -24,19 +24,13 @@ To create a VM, use the `packer build <template.json>` command. There are `.json
 ## Build Options
 To specify options for the build process, use the `-var` tag, for example:
 
-```packer build -var "host_port=8888" -var "repo_url=https://github.com/nasa-gibs/onearth.git" -var "repo_branch=v0.9.0" oe-demo.json```
+```packer build -var "host_port=8080" oe-vagrant.json```
 
 ### Available Options
 
 `host_port` - in order for the OnEarth TWMS endpoint to work, Apache in the VM needs to be configured to use the same port within the VM as will be used on the host machine. **Defaults to 8080.**
 
 In other words, if you're planning to access the VM under `localhost:8888`, it works best if Apache within the VM also uses that port. This option automatically configures Apache to use the specified port.
-
-`repo_url` - Use this option to specify the repo Packer will clone to build OnEarth. Default is **[https://github.com/nasa-gibs/onearth.git](https://github.com/nasa-gibs/onearth.git)**.
-
-`repo_branch` - Use this option to specify the version of OnEarth you want to install. This tag will be checked out before the build starts. **Default is latest OnEarth release (currently v1.0.0).**
-
-**Note that using older versions of OnEarth may require tweaks to the `bootstrap.sh` script.**
 
 ## Builders
 The following build templates are included:
