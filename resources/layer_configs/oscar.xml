@@ -5,7 +5,7 @@
  <FileNamePrefix>oscar</FileNamePrefix>
  <HeaderFileName>/etc/onearth/config/headers/oscarTTTTTTT_.mrf</HeaderFileName>
  <Compression>PBF</Compression>
- <TileMatrixSet>GoogleMapsCompatible_Level3</TileMatrixSet>
+ <TileMatrixSet>GoogleMapsCompatible_Level6</TileMatrixSet>
  <EmptyTileSize offset="0">0</EmptyTileSize>
  <Projection>EPSG:3857</Projection> 
  <EnvironmentConfig>/etc/onearth/config/conf/environment_webmercator.xml</EnvironmentConfig>

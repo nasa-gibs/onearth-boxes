@@ -9,32 +9,16 @@ yum -y install yum-utils
 yum -y install epel-release
 yum -y install httpd httpd-devel ccache rpmdevtools mock wget @buildsys-build
 
-#Clone user-selected git repo and build RPMS from source
 cd /home/vagrant
-git clone $REPO_URL
-cd onearth
-git checkout $REPO_BRANCH
 
-#Get the version of MRF that we're using to build
-export MRF_VERSION="$(awk '/MRF Version/ {print $NF}' /home/vagrant/onearth/src/test/config.txt)"
-
-cd /home/vagrant
-git clone https://github.com/nasa-gibs/mrf.git
-cd mrf
-git checkout $MRF_VERSION
-
-yum-builddep -y deploy/gibs-gdal/gibs-gdal.spec
-make gdal-download numpy-download gdal-rpm
-yum -y install dist/gibs-gdal-*.rpm
-
-cd ../onearth
+# Dependency not provided in CentOS6
 yum -y install https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-6-x86_64/pgdg-centos96-9.6-3.noarch.rpm
-yum-builddep -y deploy/onearth/onearth.spec
-source /home/vagrant/.bashrc
-make download onearth-rpm
 
-ldconfig -v
-yum -y install dist/onearth*.rpm
+# Download, install onearth stuff
+wget https://github.com/nasa-gibs/onearth/releases/download/v1.2.1/onearth-1.2.1.tar.gz
+tar xfvz onearth-1.2.1.tar.gz
+yum install -y gibs-gdal*.rpm
+yum install -y onearth*.rpm
 
 cd ..
 chown -R vagrant *
@@ -176,14 +160,14 @@ done
 	mkdir -p /usr/share/onearth/demo/data/EPSG3857/ASCATA-L2-25km/{2016,YYYY}
 	/bin/cp /home/vagrant/resources/mrfs/ASCATA-L2-25km/ASCATA-L2-25km2016188010000_.* /usr/share/onearth/demo/data/EPSG3857/ASCATA-L2-25km/2016/
 	find /usr/share/onearth/demo/data/EPSG3857/ASCATA-L2-25km/2016 -name 'ASCATA-L2-25km2016188010000*' -type f -exec bash -c 'ln -s "$1" "${1/2016188010000/TTTTTTTTTTTTT}"' -- {} \;
-	find /usr/share/onearth/demo/data/EPSG3857/ASCATA-L2-25km/2016 -name 'ASCATA-L2-25kmTTTTTTTTTTTTT*' -type l -exec bash -c 'mv "$1" "/usr/share/onearth/demo/data/EPSG4326/ASCATA-L2-25km/YYYY/"' -- {} \;
+	find /usr/share/onearth/demo/data/EPSG3857/ASCATA-L2-25km/2016 -name 'ASCATA-L2-25kmTTTTTTTTTTTTT*' -type l -exec bash -c 'mv "$1" "/usr/share/onearth/demo/data/EPSG3857/ASCATA-L2-25km/YYYY/"' -- {} \;
 	/bin/cp /usr/share/onearth/demo/data/EPSG3857/ASCATA-L2-25km/2016/ASCATA-L2-25km2016188010000_.mrf /etc/onearth/config/headers/ASCATA-L2-25kmTTTTTTTTTTTTT_.mrf
 
 #OSCAR
 	mkdir -p /usr/share/onearth/demo/data/EPSG3857/oscar/{2016,YYYY}
 	/bin/cp /home/vagrant/resources/mrfs/oscar/oscar2016189_.* /usr/share/onearth/demo/data/EPSG3857/oscar/2016/
 	find /usr/share/onearth/demo/data/EPSG3857/oscar/2016 -name 'oscar2016189*' -type f -exec bash -c 'ln -s "$1" "${1/2016189/TTTTTTT}"' -- {} \;
-	find /usr/share/onearth/demo/data/EPSG3857/oscar/2016 -name 'oscarTTTTTTT*' -type l -exec bash -c 'mv "$1" "/usr/share/onearth/demo/data/EPSG4326/oscar/YYYY/"' -- {} \;
+	find /usr/share/onearth/demo/data/EPSG3857/oscar/2016 -name 'oscarTTTTTTT*' -type l -exec bash -c 'mv "$1" "/usr/share/onearth/demo/data/EPSG3857/oscar/YYYY/"' -- {} \;
 	/bin/cp /usr/share/onearth/demo/data/EPSG3857/oscar/2016/oscar2016189_.mrf /etc/onearth/config/headers/oscarTTTTTTT_.mrf
 
 #Install and copy the Mapserver config files and endpoints
