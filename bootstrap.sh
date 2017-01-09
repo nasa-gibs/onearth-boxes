@@ -161,14 +161,14 @@ done
 	mkdir -p /usr/share/onearth/demo/data/EPSG3857/ASCATA-L2-25km/{2016,YYYY}
 	/bin/cp /home/onearth/resources/mrfs/ASCATA-L2-25km/ASCATA-L2-25km2016188010000_.* /usr/share/onearth/demo/data/EPSG3857/ASCATA-L2-25km/2016/
 	find /usr/share/onearth/demo/data/EPSG3857/ASCATA-L2-25km/2016 -name 'ASCATA-L2-25km2016188010000*' -type f -exec bash -c 'ln -s "$1" "${1/2016188010000/TTTTTTTTTTTTT}"' -- {} \;
-	find /usr/share/onearth/demo/data/EPSG3857/ASCATA-L2-25km/2016 -name 'ASCATA-L2-25kmTTTTTTTTTTTTT*' -type l -exec bash -c 'mv "$1" "/usr/share/onearth/demo/data/EPSG4326/ASCATA-L2-25km/YYYY/"' -- {} \;
+	find /usr/share/onearth/demo/data/EPSG3857/ASCATA-L2-25km/2016 -name 'ASCATA-L2-25kmTTTTTTTTTTTTT*' -type l -exec bash -c 'mv "$1" "/usr/share/onearth/demo/data/EPSG3857/ASCATA-L2-25km/YYYY/"' -- {} \;
 	/bin/cp /usr/share/onearth/demo/data/EPSG3857/ASCATA-L2-25km/2016/ASCATA-L2-25km2016188010000_.mrf /etc/onearth/config/headers/ASCATA-L2-25kmTTTTTTTTTTTTT_.mrf
 
 #OSCAR
 	mkdir -p /usr/share/onearth/demo/data/EPSG3857/oscar/{2016,YYYY}
 	/bin/cp /home/onearth/resources/mrfs/oscar/oscar2016189_.* /usr/share/onearth/demo/data/EPSG3857/oscar/2016/
 	find /usr/share/onearth/demo/data/EPSG3857/oscar/2016 -name 'oscar2016189*' -type f -exec bash -c 'ln -s "$1" "${1/2016189/TTTTTTT}"' -- {} \;
-	find /usr/share/onearth/demo/data/EPSG3857/oscar/2016 -name 'oscarTTTTTTT*' -type l -exec bash -c 'mv "$1" "/usr/share/onearth/demo/data/EPSG4326/oscar/YYYY/"' -- {} \;
+	find /usr/share/onearth/demo/data/EPSG3857/oscar/2016 -name 'oscarTTTTTTT*' -type l -exec bash -c 'mv "$1" "/usr/share/onearth/demo/data/EPSG3857/oscar/YYYY/"' -- {} \;
 	/bin/cp /usr/share/onearth/demo/data/EPSG3857/oscar/2016/oscar2016189_.mrf /etc/onearth/config/headers/oscarTTTTTTT_.mrf
 
 #Install and copy the Mapserver config files and endpoints

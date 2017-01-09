@@ -26,6 +26,9 @@ window.onload = function() {
     //Set the maximum number of zoom levels. This will depend on the average number of TileMatrixSets for each layer at this endpoint.
     var maxZoomLevels = 7;
 
+    //If using vector tiles, specify their identifiers
+    var vectorLayers = ["MODIS_C5_fires", "oscar", "ASCATA-L2-25km", "Terra_Orbit_Dsc_Dots"];
+
     //Set locations for endpoint and getCapabilities
     var endpointUrl = "./wmts.cgi?";
     var getCapabilitiesLocation = "./getCapabilities.xml";
@@ -42,6 +45,26 @@ window.onload = function() {
     var mapProjection = ol.proj.get(EPSGProjection);
     var maxRes;
     var extents;
+
+    var testVectorLayerStyle = new ol.style.Style({
+        fill: new ol.style.Fill({
+          color: 'blue'
+        }),
+        stroke: new ol.style.Stroke({
+          color: 'blue',
+          width: 1
+        }),
+        image: new ol.style.Circle({
+            radius: 1,
+            fill: new ol.style.Fill({
+                color: 'blue'
+            }),
+            stroke: new ol.style.Stroke({
+                color: 'blue',
+                width: 1
+            })
+        })
+    });
     
     //Extents and resolution info from: https://wiki.earthdata.nasa.gov/display/GIBS/GIBS+API+for+Developers
     switch (EPSGProjection) {
@@ -102,7 +125,21 @@ window.onload = function() {
     					}
     				}
     			}
-    			var newLayerSource = new ol.source.WMTS({
+
+                if(vectorLayers.includes(layerName)) {
+                    var tms = layers[i].TileMatrixSetLink[0].TileMatrixSet;
+                    var source = new ol.source.VectorTile({
+                        format: new ol.format.MVT(),
+                        tileGrid: ol.tilegrid.createXYZ({maxZoom: parseInt(tms.match(/^GoogleMapsCompatible_Level(\d)/)[1]) - 1}),
+                        tilePixelRatio: 16,
+                        url: `/onearth/demo/wmts/webmerc/wmts.cgi?layer=${layerName}&tilematrixset=${tms}&Service=WMTS&Request=GetTile&Version=1.0.0&Format=application%2Fx-protobuf&TileMatrix={z}&TileCol={x}&TileRow={y}`
+                    });
+                    var newLayer = new ol.layer.VectorTile({
+                        source,
+                        style: testVectorLayerStyle,
+                    });
+                } else {
+        			var source = new ol.source.WMTS({
     		            url: endpointUrl,
           			    layer: layerName,
     			        format: layers[i].Format[0],
@@ -113,11 +150,13 @@ window.onload = function() {
     			            tileSize: tileMatrixSet.TileMatrix[0].TileHeight,
     				    resolutions: resolutions
     			        })
-    		   	 });
-    			var newLayer = new ol.layer.Tile({
-    				source: newLayerSource,
-    				visible: false
-    			});
+        		   	 });
+        			var newLayer = new ol.layer.Tile({
+        				source,
+        			});
+                }
+                newLayer.set('id', layerName);
+                newLayer.setVisible(false);
     			map.addLayer(newLayer);
     			var dropDown = document.getElementById("layer-select");
                 //Add string for new checkbox to dropdown div
@@ -138,16 +177,15 @@ window.onload = function() {
         //For a layer that is selected, remove it and then put it at the highest index. If deselected, just make it invisible.
     	for(var i=0; i<layerCollection.getLength(); i++) {
     		var layer = layerCollection.item(i);
-    		var layerName = layer.Hd.B.source.C;
-    		if(layerName == pickedLayerName) {
-    			if(evt.target.checked) {
-    				map.getLayers().removeAt(i);
-    				map.getLayers().insertAt(1, layer);
-    				layer.setVisible(true);
-    			} else {
-    				layer.setVisible(false);
-    			}
-    		}
+    		var layerName = layer.get('id');
+    		if(layerName !== pickedLayerName) continue;
+			if(evt.target.checked) {
+				map.getLayers().removeAt(i);
+				map.getLayers().insertAt(layerCollection.getLength(), layer);
+				layer.setVisible(true);
+			} else {
+				layer.setVisible(false);
+			}
     	}
     });
 };
