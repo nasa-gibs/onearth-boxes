@@ -45,7 +45,7 @@ mkdir -p /usr/share/onearth/demo/lib
 /bin/cp -R /home/vagrant/resources/endpoint_configs/html_lib/* /usr/share/onearth/demo/lib/
 
 #Download image files
-curl -# -o /home/vagrant/resources/source_images/blue_marble.jpg http://eoimages.gsfc.nasa.gov/images/imagerecords/73000/73776/world.topo.bathy.200408.3x21600x10800.jpg
+curl -# -o /home/vagrant/resources/source_images/blue_marble.jpg https://eoimages.gsfc.nasa.gov/images/imagerecords/73000/73776/world.topo.bathy.200408.3x21600x10800.jpg
 
 #Set up endpoint configs
 for PROJECTION in "${PROJECTIONS[@]}"

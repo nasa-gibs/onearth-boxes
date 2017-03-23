@@ -10,6 +10,6 @@
  <Projection>EPSG:3857</Projection> 
  <EnvironmentConfig>/etc/onearth/config/conf/environment_webmercator.xml</EnvironmentConfig>
  <ArchiveLocation static="false" year="true">Terra_Orbit_Dsc_Dots</ArchiveLocation>
- <StyleJSON version="1.0" default="true">Terra_Orbit_Dsc_Dots.json</StyleJSON>
+ <StyleJSON>Terra_Orbit_Dsc_Dots.json</StyleJSON>
  <Time>DETECT/P1D</Time>
 </LayerConfiguration>
