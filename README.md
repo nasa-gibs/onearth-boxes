@@ -85,7 +85,7 @@ To run OnEarth within a Docker container, first use Packer to build the Docker i
 
 Then, to run a container, use the `docker run` command. You'll want to follow something like this:
 
-`docker run -d -p <host_port>:<container_port> gibs/onearth:1.0.0 apachectl -D FOREGROUND`
+`docker run -d -p <host_port>:<container_port> gibs/onearth:1.2.2 apachectl -D FOREGROUND`
 
 So to run a Docker container that's accessible via port 8080 on the host machine, run:
 
