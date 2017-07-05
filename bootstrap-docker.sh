@@ -8,7 +8,7 @@ declare -a PROJEPSGS=(EPSG4326 EPSG3857 EPSG3413 EPSG3031)
 yum -y install yum-utils
 yum -y install epel-release
 yum -y install httpd httpd-devel rpmdevtools wget @buildsys-build tar
-yum groupinstall -y 'Development Tools' 
+yum groupinstall -y 'Development Tools'
 
 #Clone user-selected git repo and build RPMS from source
 cd /home/onearth
@@ -72,7 +72,7 @@ done
 #Blue marble - geographic and webmercator (using same source image)
 declare -a MARBLE_PROJECTIONS=(geo webmerc)
 for INDEX in {0..1}
-do 
+do
 	#Copy image files and set up MRF process dirs
 	mkdir -p /home/onearth/resources/generated_mrfs/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}/{source_images,working_dir,logfile_dir,output_dir,empty_tiles}
 	/bin/cp /home/onearth/resources/source_images/blue_marble.* /home/onearth/resources/generated_mrfs/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}/source_images/
@@ -89,7 +89,7 @@ do
 	 /bin/cp /home/onearth/resources/generated_mrfs/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}/output_dir/blue_marble.mrf /etc/onearth/config/headers/blue_marble_${MARBLE_PROJECTIONS[$INDEX]}.mrf
 done
 
-#MODIS data - right now, we're only using it in geo projection 
+#MODIS data - right now, we're only using it in geo projection
 declare -a MODIS_PROJECTIONS=(geo)
 for INDEX in {0..0}
 do
@@ -101,7 +101,7 @@ do
 	cd /home/onearth/resources/generated_mrfs/MYR4ODLOLLDY_global_2014277_10km_${MODIS_PROJECTIONS[$INDEX]}/
 
 	mrfgen -c /home/onearth/resources/generated_mrfs/MYR4ODLOLLDY_global_2014277_10km_${MODIS_PROJECTIONS[$INDEX]}/MYR4ODLOLLDY_global_2014277_10km_${MODIS_PROJECTIONS[$INDEX]}_config.xml
- 
+
 	#Create data archive directories and copy MRF files
 	 mkdir -p /usr/share/onearth/demo/data/${PROJEPSGS[$INDEX]}/MYR4ODLOLLDY_global_10km/{2014,YYYY}
 	 /bin/cp /home/onearth/resources/generated_mrfs/MYR4ODLOLLDY_global_2014277_10km_${MODIS_PROJECTIONS[$INDEX]}/output_dir/MYR4ODLOLLDY2014277_.* /usr/share/onearth/demo/data/${PROJEPSGS[$INDEX]}/MYR4ODLOLLDY_global_10km/2014/
@@ -195,14 +195,14 @@ mkdir -p /usr/share/onearth/demo/wms/epsg3031
 mkdir -p /usr/share/onearth/demo/wfs/epsg3031
 mkdir -p /usr/share/onearth/demo/wms/epsg3413
 mkdir -p /usr/share/onearth/demo/wfs/epsg3413
-/bin/cp /home/vagrant/resources/mapserver_config/wms.cgi /usr/share/onearth/demo/wms/epsg4326
-/bin/cp /home/vagrant/resources/mapserver_config/wms.cgi /usr/share/onearth/demo/wms/epsg3857
-/bin/cp /home/vagrant/resources/mapserver_config/wms.cgi /usr/share/onearth/demo/wms/epsg3031
-/bin/cp /home/vagrant/resources/mapserver_config/wms.cgi /usr/share/onearth/demo/wms/epsg3413
-/bin/cp /home/vagrant/resources/mapserver_config/wms.cgi /usr/share/onearth/demo/wfs/epsg4326/wfs.cgi
-/bin/cp /home/vagrant/resources/mapserver_config/wms.cgi /usr/share/onearth/demo/wfs/epsg3857/wfs.cgi
-/bin/cp /home/vagrant/resources/mapserver_config/wms.cgi /usr/share/onearth/demo/wfs/epsg3031/wfs.cgi
-/bin/cp /home/vagrant/resources/mapserver_config/wms.cgi /usr/share/onearth/demo/wfs/epsg3413/wfs.cgi
+/bin/cp /home/onearth/resources/mapserver_config/wms.cgi /usr/share/onearth/demo/wms/epsg4326
+/bin/cp /home/onearth/resources/mapserver_config/wms.cgi /usr/share/onearth/demo/wms/epsg3857
+/bin/cp /home/onearth/resources/mapserver_config/wms.cgi /usr/share/onearth/demo/wms/epsg3031
+/bin/cp /home/onearth/resources/mapserver_config/wms.cgi /usr/share/onearth/demo/wms/epsg3413
+/bin/cp /home/onearth/resources/mapserver_config/wms.cgi /usr/share/onearth/demo/wfs/epsg4326/wfs.cgi
+/bin/cp /home/onearth/resources/mapserver_config/wms.cgi /usr/share/onearth/demo/wfs/epsg3857/wfs.cgi
+/bin/cp /home/onearth/resources/mapserver_config/wms.cgi /usr/share/onearth/demo/wfs/epsg3031/wfs.cgi
+/bin/cp /home/onearth/resources/mapserver_config/wms.cgi /usr/share/onearth/demo/wfs/epsg3413/wfs.cgi
 
 #Compile the KML script and copy to TWMS dirs
 cd /usr/share/onearth/apache/kml
