@@ -9,7 +9,7 @@ OnEarth-Boxes is a system that creates VM images for use in running, testing, an
 Boxes comes with some sample imagery and some pre-configured endpoints for use with testing and development.
 
 # What's in the Boxes?
-OnEarth-Boxes comes pre-configured with NASA Blue Marble and MODIS Aerosol imagery layers, in 4 separate projections. There are OpenLayers endpoints for testing with WMTS, as well as TWMS/KML and Mapserver endpoints.
+OnEarth-Boxes comes pre-configured with several sample layers in 4 separate projections. There are OpenLayers endpoints for testing with WMTS, as well as TWMS/KML and Mapserver endpoints.
 
 All the source code for both MRF and OnEarth is included, and all the utilities are pre-installed, including the GDAL MRF extensions.
 
@@ -71,7 +71,7 @@ From any directory you like, type the command `vagrant init`, which will set up 
 ```config.vm.network "forwarded_port", guest: <chosen_port>, host: <chosen_port>```
 
 ### Step 5: Start the VM
-Use the `vagrant up` command to boot the VM. The demo should now be available at: `localhost:<chosen_port>/onearth/demo`
+Use the `vagrant up` command to boot the VM. The demo should now be available at: `localhost:<chosen_port>/onearth/`
 
 You can use the `vagrant ssh` command to open a shell inside the VM. The directory that contains your `Vagrantfile` is mapped to `/vagrant` within the VM by default.
 
@@ -85,10 +85,10 @@ To run OnEarth within a Docker container, first use Packer to build the Docker i
 
 Then, to run a container, use the `docker run` command. You'll want to follow something like this:
 
-`docker run -d -p <host_port>:<container_port> gibs/onearth:1.2.2 apachectl -D FOREGROUND`
+`docker run -d -p <host_port>:<container_port> gibs/onearth:1.3.1 apachectl -D FOREGROUND`
 
 So to run a Docker container that's accessible via port 8080 on the host machine, run:
 
-`docker run -d -p 8080:8080 gibs/onearth:1.0.0 apachectl -D FOREGROUND`
+`docker run -d -p 8080:8080 gibs/onearth:1.3.1 apachectl -D FOREGROUND`
 
 You can then view the OnEarth demo page by pointing your browser to: **[http://localhost:8080/onearth/demo](http://localhost:8080/onearth/demo)**.
