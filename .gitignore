@@ -5,3 +5,4 @@ output-vmware-iso/
 .vagrant/
 packer_cache/
 .DS_Store
+.project
