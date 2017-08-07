@@ -3,33 +3,23 @@
 #Install Apache and EPEL
 yum -y install yum-utils
 yum -y install epel-release
-yum -y install httpd httpd-devel rpmdevtools wget @buildsys-build tar
-yum groupinstall -y 'Development Tools'
-
-#Clone user-selected git repo and build RPMS from source
-cd /home/onearth
-git clone $REPO_URL
-cd onearth
-git checkout $REPO_BRANCH
-
-export MRF_VERSION="$(awk '/MRF Version/ {print $NF}' /home/onearth/onearth/src/test/config.txt)"
+yum -y install httpd httpd-devel ccache rpmdevtools mock wget @buildsys-build
+yum -y groupinstall "Development Tools"
 
 cd /home/onearth
-git clone https://github.com/nasa-gibs/mrf.git
-cd mrf
-git checkout $MRF_VERSION
 
-yum-builddep -y deploy/gibs-gdal/gibs-gdal.spec
-make download gdal-rpm
-yum -y install dist/gibs-gdal-*.rpm
-
-cd /home/onearth/onearth
+# Dependency not provided in CentOS6
 yum -y install https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-6-x86_64/pgdg-centos96-9.6-3.noarch.rpm
-yum-builddep -y deploy/onearth/onearth.spec
-make download onearth-rpm
 
-ldconfig -v
-yum -y install dist/onearth*.rpm
+# Download, install onearth stuff
+wget https://github.com/nasa-gibs/onearth/releases/download/v1.3.1/onearth-1.3.1.el6.tar.gz
+tar xfvz onearth-1.3.1.el6.tar.gz
+yum install -y gibs-gdal*.rpm
+yum install -y onearth*.rpm
+
+cd ..
+chown -R onearth *
+chgrp -R onearth *
 
 #Set LCDIR
 mkdir /home/onearth

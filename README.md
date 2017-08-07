@@ -91,4 +91,4 @@ So to run a Docker container that's accessible via port 8080 on the host machine
 
 `docker run -d -p 8080:8080 gibs/onearth:1.3.1 apachectl -D FOREGROUND`
 
-You can then view the OnEarth demo page by pointing your browser to: **[http://localhost:8080/onearth/demo](http://localhost:8080/onearth/demo)**.
+You can then view the OnEarth demo page by pointing your browser to: **[http://localhost:8080/onearth/](http://localhost:8080/onearth/)**.
