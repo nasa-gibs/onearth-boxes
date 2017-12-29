@@ -2,7 +2,7 @@
 	"variables": {
 		"host_port": "8080",
 		"repo_url": "https://github.com/nasa-gibs/onearth.git",
-		"repo_branch": "1.3.1"
+		"repo_branch": "1.3.2"
 	},
 	"builders": [
 	{
