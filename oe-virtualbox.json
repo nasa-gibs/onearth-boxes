@@ -1,7 +1,7 @@
 {
 	"variables": {
 		"host_port": "8080",
-		"oe_version": "1.3.2"
+		"oe_version": "1.3.4"
 	},
 	"builders": [
 	{
