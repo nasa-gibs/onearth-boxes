@@ -12,8 +12,8 @@ cd /home/onearth
 yum -y install https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-6-x86_64/pgdg-centos96-9.6-3.noarch.rpm
 
 # Download, install onearth stuff
-wget https://github.com/nasa-gibs/onearth/releases/download/v1.3.5/onearth-1.3.5-3.el6.tar.gz
-tar xfvz onearth-1.3.5-3.el6.tar.gz
+wget https://github.com/nasa-gibs/onearth/releases/download/v1.3.5/onearth-1.3.5-5.el6.tar.gz
+tar xfvz onearth-1.3.5-5.el6.tar.gz
 yum install -y gibs-gdal*.rpm
 yum install -y onearth*.rpm
 
